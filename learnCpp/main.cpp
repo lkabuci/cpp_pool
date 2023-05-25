@@ -1,28 +1,47 @@
 #include <iostream>
+#include <ostream>
 #include <string>
+#include <string.h>
+#include <stdlib.h>
 
-std::string upperCase(std::string str) {
-    std::string buffer;
+class Rectangle{
+	private:
+		int height;
+		int width;
+	public:
+		void setDim(int w, int h) {
+		width = w;
+		height = h;
+	}
+		void draw();
+		int	getArea();
+};
 
-    for (int i = {0}; str[i]; i++) {
-        buffer += char(toupper(str[i]));
-    }
-    return buffer;
+int Rectangle::getArea() {
+	int area = Rectangle::width * Rectangle::height;
+	return area;
 }
 
-int main(int argc, char *argv[]) {
-    if (argc != 2) {
-        std::cout << "Usage: " << argv[0] << " <param>" << std::endl;
-        return 1;
-    }
-    std::string buffer;
-    while (true) {
-        std::getline(std::cin, buffer);
-        if (std::cin.eof())
-            break;
-        if (buffer == "EXIT")
-            break;
-        std::cout << upperCase(buffer) << std::endl;
-    }
-    return 0;
+void	Rectangle::draw() {
+	int i = 0;
+
+	std::string edges = "+" + std::string(Rectangle::width - 2, '-') + "+";
+	std::string midle = "|" + std::string(Rectangle::width - 2, ' ') + "|";
+
+	std::cout << edges << std::endl;
+	while (i < Rectangle::height) {
+		std::cout << midle << std::endl;
+		i++;	
+	}
+	std::cout << edges << std::endl;
 }
+
+int main (int argc, char *argv[])
+{
+	(void)argc,(void)argv;
+	Rectangle rec;
+	rec.setDim(strtol(argv[1], NULL, 10), strtol(argv[2], NULL, 10));
+	rec.draw();
+	return 0;
+}
+

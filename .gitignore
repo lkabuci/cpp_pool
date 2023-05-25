@@ -2,6 +2,7 @@
 lCpp
 
 # Cmake ignore
+build/
 Makefile
 cmake-build-debug/
 CMakeLists.txt.user
