@@ -4,7 +4,7 @@ SRCS		=	$(wildcard *.cpp)
 BINS		=	$(SRCS:.cpp=)
 
 all:
-	$(CC) $(CFLAGS) $(SRCS) -o $(BINS)
+	$(CC) $(SRCS) -o $(BINS)
 
 clean:
 	$(RM) $(BINS)
