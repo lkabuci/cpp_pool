@@ -1,22 +1,23 @@
-#ifndef PHONEBOOK_HPP
-# define PHONEBOOK_HPP
+#ifndef CPP_POOL_PHONEBOOK_HPP
+#define CPP_POOL_PHONEBOOK_HPP
 
-# include <iostream>
+#include "Contact.hpp"
 
-using namespace std;
+class PhoneBook {
+private:
+    Contact _contacts[MAX_CONTACTS];
+    int _nbContacts;
+    int _index;
 
-class Car {
-	public:
-		string name;
-		string model_name;
-		int model_year;
-		Car ();	// constructure
+public:
+    PhoneBook();
+    ~PhoneBook();
+    std::string getInput(std::string prompt);
+    void addContact();
+    void searchContact() const;
+    void printContact(int index) const;
+    void printAllContacts() const;
+    int getNbContacts() const;
 };
 
-void Car::out(string name, string model_name, int model_year) {
-	cout << "this is the " << name + " " + model_name
-		 << " has been released in" << model_year << endl;
-}
-
-#endif // !PHONEBOOK_HPP
-
+#endif //CPP_POOL_PHONEBOOK_HPP
