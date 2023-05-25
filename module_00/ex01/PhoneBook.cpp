@@ -1,5 +1,11 @@
-//
-// Created by redone on 2/10/23.
-//
+#include "PhoneBook.hpp"
 
-#include "PhoneBook.h"
+int main()
+{
+	Car Bmw;
+	Bmw.name = "Bmw";
+	Bmw.model_name = "X6";
+	Bmw.model_year = 2019;
+	Bmw.out();
+}
+

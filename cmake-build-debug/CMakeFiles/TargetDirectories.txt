@@ -1,0 +1,3 @@
+/home/redone/Projects/cpp_pool/cmake-build-debug/CMakeFiles/lCpp.dir
+/home/redone/Projects/cpp_pool/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/redone/Projects/cpp_pool/cmake-build-debug/CMakeFiles/rebuild_cache.dir
