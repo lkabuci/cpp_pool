@@ -5,6 +5,11 @@ cmake CMakeLists.txt
 cmake --build .
 ```
 
+single instance of a variable in memory
+reference parameter `double& value`
+
+
+
 * Class is a template for objects, and an object is an instance of a class.
 
 ```cpp
