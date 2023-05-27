@@ -1,14 +1,10 @@
-//
-// Created by redone on 5/26/23.
-//
-
-#ifndef CPP_POOL_ACCOUNT_HPP
-#define CPP_POOL_ACCOUNT_HPP
+#ifndef ACCOUNT_HPP
+#define ACCOUNT_HPP
 
 
-class account {
+class Account {
 
 };
 
 
-#endif //CPP_POOL_ACCOUNT_HPP
+#endif //ACCOUNT_HPP

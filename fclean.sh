@@ -9,8 +9,16 @@ listToClean="
 "
 
 for i in $listToClean; do
-	rm -rf $PWD/$i
+	rm -rf "$i"
 done
 
-make --no-print-directory -C $PWD/module00/ex00 clean
-make --no-print-directory -C $PWD/module00/ex01 clean
+exercises="
+	module00/ex00
+	module00/ex01
+	module00/ex02
+	module01/ex00
+	module01/ex01
+"
+for exercise in $exercises; do
+	make --no-print-directory -C "$exercise" clean
+done
