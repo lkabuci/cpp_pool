@@ -21,7 +21,7 @@ void    PhoneBook::displayContacts() {
     }
 }
 
-void PhoneBook::add(void) {
+void PhoneBook::add() {
     std::string firstName = getInput("first name:");
     std::string lastName = getInput("last name:");
     std::string nickName = getInput("nickname:");
@@ -47,7 +47,7 @@ void PhoneBook::add(void) {
     this->_index %= MAX_CONTACTS;
 }
 
-void    PhoneBook::search(void) {
+void    PhoneBook::search() {
     if (this->_size == 0) {
         std::cout << "Phonebook is empty." << std::endl;
         return;

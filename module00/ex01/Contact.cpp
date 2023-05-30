@@ -27,11 +27,11 @@ std::string Contact::getDarkSecret(void) {
 }
 
 void Contact::setContact(
-        std::string firsName,
-        std::string lastName,
-        std::string nickName,
-        std::string phoneNumber,
-        std::string darkSecret) {
+        const std::string& firsName,
+        const std::string& lastName,
+        const std::string& nickName,
+        const std::string& phoneNumber,
+        const std::string& darkSecret) {
     this->_firstName = firsName;
     this->_lastName = lastName;
     this->_nickName = nickName;

@@ -7,12 +7,16 @@
 #include <iomanip>
 #include <iostream>
 
-std::string getInput(std::string prompt);
+std::string getInput(const std::string& prompt);
+
+std::string getInput(const std::string& prompt, int type);
 
 std::string truncateString(std::string str);
 
 bool isValidPhoneNumber(std::string strNumber);
 
 bool isAllDigit(std::string strNumber);
+
+bool isStringEmpty(const std::string& str);
 
 #endif //CPP_POOL_UTILS_H

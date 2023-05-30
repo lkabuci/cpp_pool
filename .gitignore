@@ -3,7 +3,7 @@ lCpp
 
 # Cmake ignore
 build/
-Makefile
+# Makefile
 cmake-build-debug/
 CMakeLists.txt.user
 CMakeCache.txt

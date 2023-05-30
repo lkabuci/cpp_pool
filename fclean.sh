@@ -1,5 +1,4 @@
 listToClean="
-  lCpp
   build
   Makefile
   CMakeFiles
@@ -20,5 +19,5 @@ exercises="
 	module01/ex01
 "
 for exercise in $exercises; do
-	make --no-print-directory -C "$exercise" clean
+	make --no-print-directory -C "$exercise" clean &> /dev/null
 done

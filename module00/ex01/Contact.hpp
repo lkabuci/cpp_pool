@@ -16,11 +16,11 @@ public:
     ~Contact();
 
     void setContact(
-            std::string firstName,
-            std::string lastName,
-            std::string nickName,
-            std::string phoneNumber,
-            std::string darkSecret);
+            const std::string& firstName,
+            const std::string& lastName,
+            const std::string& nickName,
+            const std::string& phoneNumber,
+            const std::string& darkSecret);
 
     std::string getFirstName(void);
 
