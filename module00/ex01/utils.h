@@ -9,8 +9,6 @@
 
 std::string getInput(const std::string& prompt);
 
-std::string getInput(const std::string& prompt, int type);
-
 std::string truncateString(std::string str);
 
 bool isValidPhoneNumber(std::string strNumber);

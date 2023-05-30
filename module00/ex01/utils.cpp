@@ -36,23 +36,11 @@ std::string getInput(const std::string& prompt) {
     std::string input;
     std::cout << prompt << "\t";
     std::getline(std::cin, input);
-    if (std::cin.eof()) {
-        std::cerr << "Error: element can't be EOF" << std::endl;
+    if (std::cin.eof() || isStringEmpty(input) == true) {
+        std::cerr << "Error: element can't be empty" << std::endl;
         exit(EXIT_FAILURE);
     }
-	std::cout << input.empty() << std::endl;
-	std::string::size_type index = input.find('\n');
-	std::cout << index << std::endl;
     return input;
-}
-
-std::string getInput(const std::string& prompt, int type) {
-	(void) type;
-	std::string str = getInput(prompt);
-	if (!isStringEmpty(str)) {
-		exit (EXIT_FAILURE);
-	}
-	return str;
 }
 
 bool isStringEmpty(const std::string& str) {

@@ -25,12 +25,11 @@ void PhoneBook::add() {
     std::string firstName = getInput("first name:");
     std::string lastName = getInput("last name:");
     std::string nickName = getInput("nickname:");
-    std::string phoneNumber;
-    while (true) {
-        phoneNumber = getInput("phone number:");
-        if (isValidPhoneNumber(phoneNumber))
-            break;
-        std::cout << "Wrong phone number." << std::endl;
+    std::string phoneNumber = getInput("phone number:");
+    phoneNumber = getInput("phone number:");
+    if (isValidPhoneNumber(phoneNumber) == false) {
+        std::cerr << "invalid phone number" << std::endl;
+        exit(EXIT_FAILURE);
     }
     std::string darkSecret = getInput("dark secret:");
     this->_contacts[this->_index].setContact(
