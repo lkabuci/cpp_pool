@@ -36,7 +36,7 @@ std::string getInput(const std::string& prompt) {
     std::string input;
     std::cout << prompt << "\t";
     std::getline(std::cin, input);
-    if (std::cin.eof() || isStringEmpty(input) == true) {
+    if (std::cin.eof() || isStringEmpty(input)) {
         std::cerr << "Error: element can't be empty" << std::endl;
         exit(EXIT_FAILURE);
     }

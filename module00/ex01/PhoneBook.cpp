@@ -27,7 +27,7 @@ void PhoneBook::add() {
     std::string nickName = getInput("nickname:");
     std::string phoneNumber = getInput("phone number:");
     phoneNumber = getInput("phone number:");
-    if (isValidPhoneNumber(phoneNumber) == false) {
+    if (!isValidPhoneNumber(phoneNumber)) {
         std::cerr << "invalid phone number" << std::endl;
         exit(EXIT_FAILURE);
     }
