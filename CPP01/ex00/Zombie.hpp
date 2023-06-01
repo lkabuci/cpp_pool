@@ -11,11 +11,11 @@ private:
 public:
 	Zombie();
 	~Zombie();
-	void announce(void);
+	void announce();
 	void setName(std::string name);
 };
 
-Zombie*	newZombie(std::string name);
-void	randomChump(std::string name);
+Zombie*	newZombie(const std::string& name);
+void	randomChump(const std::string& name);
 
 #endif //ZOMBIE_HPP

@@ -11,10 +11,10 @@ private:
 public:
 	Zombie();
 	~Zombie();
-	void announce(void);
-	void setName(std::string name);
+	void announce();
+	void setName(const std::string& name);
 };
 
-Zombie*	zombieHorde( int N, std::string name );
+Zombie*	zombieHorde( int N, const std::string& name );
 
 #endif //CPP_POOL_ZOMBIE_HPP
