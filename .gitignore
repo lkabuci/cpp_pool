@@ -3,6 +3,8 @@ lCpp
 
 # Cmake ignore
 build/
+.idea/
+.cmake/
 cmake-build-debug/
 CMakeLists.txt.user
 CMakeCache.txt
