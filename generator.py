@@ -8,12 +8,18 @@ if len(sys.argv) < 2:
     sys.exit(1)
 
 input_arg = sys.argv[1]
+input_arg.strip()
 
 # Remove unnecessary parts of the input
-files = input_arg.split(': ')[1]
+try:
+    files = input_arg.split(': ')[1]
+except:
+    files = input_arg
 
 # Replace .{h, hpp} with .hpp
+files = files.replace('\n', '')
 files = files.replace('.{h, hpp}', '.hpp')
+files = files.replace('.{h,hpp}', '.hpp')
 
 # Remove spaces and split the files by comma
 file_list = [file.strip() for file in files.replace(' ', '').split(',')]
@@ -25,4 +31,6 @@ for file in file_list:
     elif file.endswith('.cpp'):
         open(file, 'a').close()
 
-print("Files created successfully!")
+# print("Files created successfully!")
+print("\033[32mFiles created successfully!\033[0m")
+
