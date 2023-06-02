@@ -1,6 +1,8 @@
+NAME = brainz
+
 all:
-	c++ -Wall -Wextra -Werror -std=c++98 *.cpp -o brainz
+	c++ -Wall -Wextra -Werror -std=c++98 *.cpp -o $(NAME)
 
 clean:
-	rm -rf brainz
+	rm -rf $(NAME)
 
