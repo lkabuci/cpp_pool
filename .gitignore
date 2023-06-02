@@ -1,5 +1,5 @@
-# Executable
-lCpp
+# Mac binary
+.DS_Store
 
 # Cmake ignore
 build/

@@ -1,4 +1,5 @@
 listToClean="
+  .cmake
   build
   Makefile
   CMakeFiles
@@ -21,3 +22,7 @@ exercises="
 for exercise in $exercises; do
 	make --no-print-directory -C "$exercise" clean &> /dev/null
 done
+
+find . -name '.DS*' -type f -delete
+find . -name 'a.out' -type f -delete
+
