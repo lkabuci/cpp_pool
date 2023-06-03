@@ -15,7 +15,7 @@ public:
     Weapon(std::string _type);
     ~Weapon();
     const std::string& getType( void );
-    void setType(std::string newType);
+    void setType(const std::string& newType);
 };
 
 #endif // WEAPON_HPP
