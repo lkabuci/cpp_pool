@@ -8,7 +8,7 @@
 
 std::string readFile(const char *string);
 void		changing(std::string& fileContent, std::string haystack, std::string needle);
-void		writting(const std::string filename, const std::string& fileContent);
+void		writting(std::string filename, const std::string& fileContent);
 
 /* args = {filename, string 1, string 2} */
 int main(int argc, const char *argv[]) {
