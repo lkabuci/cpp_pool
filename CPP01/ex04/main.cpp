@@ -14,7 +14,7 @@ void		writting(std::string filename, const std::string& fileContent);
 int main(int argc, const char *argv[]) {
 	std::string		fileContent;
 
-	if (argc != 4 || !*argv[2]) {
+	if (argc != 4) {
 		std::cerr << "Error: invalid arguments" << std::endl;
 		std::cerr << "Usage: ./exec {filename} {string 1} {string 2}" << std::endl;
 		return (EXIT_FAILURE);
@@ -43,6 +43,8 @@ std::string readFile(const char *string) {
 }
 
 void		changing(std::string& fileContent, std::string haystack, std::string needle) {
+	if (haystack.empty())
+		return;
 	while (true) {
 		size_t position = fileContent.find(haystack);
 		if (position == std::string::npos)
