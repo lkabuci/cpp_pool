@@ -22,7 +22,6 @@ int main(int argc, const char *argv[]) {
 	fileContent = readFile(argv[1]);
 	changing(fileContent, argv[2], argv[3]);
 	writting(std::string(argv[1]), fileContent);
-	std::cout << fileContent << std::endl;
 return 0;
 }
 
