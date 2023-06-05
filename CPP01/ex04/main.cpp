@@ -22,7 +22,7 @@ int main(int argc, const char *argv[]) {
 	fileContent = readFile(argv[1]);
 	changing(fileContent, argv[2], argv[3]);
 	writting(std::string(argv[1]), fileContent);
-return 0;
+	return 0;
 }
 
 std::string readFile(const char *string) {
@@ -43,7 +43,7 @@ std::string readFile(const char *string) {
 }
 
 void		changing(std::string& fileContent, std::string haystack, std::string needle) {
-	if (haystack.empty())
+	if (haystack.empty() || haystack == needle)
 		return;
 	while (true) {
 		size_t position = fileContent.find(haystack);

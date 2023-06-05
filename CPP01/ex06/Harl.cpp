@@ -54,10 +54,10 @@ void	Harl::complain(std::string level) {
 	switch (i) {
 		case DEBUG:
 			this->debug();
-		case WARNING:
-			this->warning();
 		case INFO:
 			this->info();
+		case WARNING:
+			this->warning();
 		case ERROR:
 			this->error();
 	}
