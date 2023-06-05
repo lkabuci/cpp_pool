@@ -5,15 +5,13 @@
 #include "Account.hpp"
 #include <iostream>
 #include <string>
-#include <cstring>
 #include <ctime>
 
 // this one is private
 void Account::_displayTimestamp(void) {
     std::time_t currentTime = std::time(NULL);
     std::tm     *timeInfo = std::localtime(&currentTime);
-    char buffer[20];
-	std::memset(buffer, 0, sizeof(buffer));
+    char buffer[20] = { 0 };
     std::strftime(buffer, sizeof(buffer), "[%Y%m%d_%H%M%S] ", timeInfo);
     std::cout << std::string(buffer);
 }
