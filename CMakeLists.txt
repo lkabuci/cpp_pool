@@ -17,7 +17,7 @@ add_executable(cpp1_ex5 CPP01/ex05/main.cpp CPP01/ex05/main.cpp CPP01/ex05/Harl.
 add_executable(cpp1_ex6 CPP01/ex06/main.cpp CPP01/ex06/Harl.cpp CPP01/ex06/Harl.hpp )
 
 # CPP 02
-add_executable(cpp2_ex0 CPP02/ex00/main.cpp CPP02/ex00/Fixed.cpp CPP02/ex00/Fixed.hpp)
+add_executable(cpp2_ex0 CPP02/ex00/main.cpp CPP02/ex00/Fixed.cpp CPP02/ex00/Fixed.hpp CPP02/ex00/Fixed.cpp)
 add_executable(cpp2_ex1 CPP02/ex01/main.cpp CPP02/ex01/Fixed.cpp CPP02/ex01/Fixed.hpp)
 add_executable(cpp2_ex2 CPP02/ex02/main.cpp CPP02/ex02/Fixed.cpp CPP02/ex02/Fixed.hpp)
 

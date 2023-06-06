@@ -5,25 +5,22 @@
 #ifndef POOL_FIXED_HPP
 #define POOL_FIXED_HPP
 
-#include <string>
 #include <iostream>
+#include <string>
 
 class Fixed {
 public:
-	Fixed();
-	Fixed (Fixed &obj);
-	~Fixed();
+	Fixed ( void );							// default constructor
+	Fixed (Fixed &obj);						// copy constructor
+	Fixed& operator=(const Fixed& other);	// copy assignment operator
+	~Fixed( void );
+
 	int getRawBits( void ) const;
 	void setRawBits( int const raw );
 
 private:
 	int					fixedPointNumberValue;
 	static const int	fractionalBits;
-
-public:
-
-
 };
-
 
 #endif //POOL_FIXED_HPP

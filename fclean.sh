@@ -28,7 +28,7 @@ exercises=(
 )
 
 for exercise in "${exercises[@]}"; do
-  make --no-print-directory -C "$exercise" clean &> /dev/null
+  make --no-print-directory -C "$exercise" clean 2> /dev/null
 done
 
 find . -name '.DS*' -type f -delete &> /dev/null
