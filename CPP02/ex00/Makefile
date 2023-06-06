@@ -1,4 +1,4 @@
-NAME = orthodox
+NAME = a.out
 
 all:
 	c++ -Wall -Wextra -Werror -std=c++98 *.cpp -o $(NAME)
