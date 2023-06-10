@@ -28,6 +28,6 @@ private:
 	static const int	fractionalBits;
 };
 
-std::ostream& operator<<(std::ostream& stream, const Fixed& fixed);
+std::ostream& operator<<(std::ostream& os, const Fixed& fixed);
 
 #endif //POOL_FIXED_HPP
