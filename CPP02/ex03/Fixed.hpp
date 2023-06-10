@@ -33,24 +33,16 @@ public:
 	Fixed operator* (const Fixed& other) const;
 	Fixed operator/ (const Fixed& other) const;
 
-	// Overloading unary operators
-	Fixed& operator++ (void);
-	Fixed operator++ (int);
-	Fixed& operator-- (void);
-	Fixed operator-- (int);
+	// Overloading increment and decrement operators
+	void operator++ (void);            // pre incremental
+	Fixed operator++ (int other);        // post incremental
+	void operator-- (void);            // pre decremental
+	Fixed operator-- (int other);        // post decremental
 
 
-	// methods
-	static Fixed& min (Fixed& fixedPoint1, Fixed& fixedPoint2);
-	static const Fixed& min (const Fixed& fixedPoint1, const Fixed& fixedPoint2);
-	static Fixed& max (Fixed& fixedPoint1, Fixed& fixedPoint2);
-	static const Fixed& max (const Fixed& fixedPoint1, const Fixed& fixedPoint2);
-
-	// getters and setters
 	int getRawBits (void) const;
 	void setRawBits (int const raw);
 
-	// methods
 	float toFloat (void) const;
 	int toInt (void) const;
 
@@ -59,6 +51,6 @@ private:
 	static const int exponent;
 };
 
-std::ostream& operator<< (std::ostream& os, const Fixed& fixed);
+std::ostream& operator<< (std::ostream& stream, const Fixed& fixed);
 
 #endif //FIXED_HPP
