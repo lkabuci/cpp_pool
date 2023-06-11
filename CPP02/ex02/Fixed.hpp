@@ -12,12 +12,12 @@
 class Fixed {
 public:
 	// Constructors
-	Fixed (void);
+	Fixed ();
 	Fixed (const Fixed& obj);
 	Fixed (const int value);
 	Fixed (const float value);
 	Fixed& operator= (const Fixed& other);
-	~Fixed (void);
+	~Fixed ();
 
 	// Overloading comparison operations
 	bool operator> (const Fixed& other) const;
@@ -34,9 +34,9 @@ public:
 	Fixed operator/ (const Fixed& other) const;
 
 	// Overloading unary operators
-	Fixed& operator++ (void);
+	Fixed& operator++ ();
 	Fixed operator++ (int);
-	Fixed& operator-- (void);
+	Fixed& operator-- ();
 	Fixed operator-- (int);
 
 
@@ -47,12 +47,12 @@ public:
 	static const Fixed& max (const Fixed& fixedPoint1, const Fixed& fixedPoint2);
 
 	// getters and setters
-	int getRawBits (void) const;
-	void setRawBits (int const raw);
+	int getRawBits () const;
+	void setRawBits (int raw);
 
 	// methods
-	float toFloat (void) const;
-	int toInt (void) const;
+	float toFloat () const;
+	int toInt () const;
 
 private:
 	int value;

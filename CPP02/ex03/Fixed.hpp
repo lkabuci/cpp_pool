@@ -12,12 +12,12 @@
 class Fixed {
 public:
 	// Constructors
-	Fixed (void);
+	Fixed ();
 	Fixed (const Fixed& obj);
 	Fixed (const int value);
 	Fixed (const float value);
 	Fixed& operator= (const Fixed& other);
-	~Fixed (void);
+	~Fixed ();
 
 	// Overloading comparison operations
 	bool operator> (const Fixed& other) const;
@@ -33,24 +33,32 @@ public:
 	Fixed operator* (const Fixed& other) const;
 	Fixed operator/ (const Fixed& other) const;
 
-	// Overloading increment and decrement operators
-	void operator++ (void);            // pre incremental
-	Fixed operator++ (int other);        // post incremental
-	void operator-- (void);            // pre decremental
-	Fixed operator-- (int other);        // post decremental
+	// Overloading unary operators
+	Fixed& operator++ ();
+	Fixed operator++ (int);
+	Fixed& operator-- ();
+	Fixed operator-- (int);
 
 
-	int getRawBits (void) const;
-	void setRawBits (int const raw);
+	// methods
+	static Fixed& min (Fixed& fixedPoint1, Fixed& fixedPoint2);
+	static const Fixed& min (const Fixed& fixedPoint1, const Fixed& fixedPoint2);
+	static Fixed& max (Fixed& fixedPoint1, Fixed& fixedPoint2);
+	static const Fixed& max (const Fixed& fixedPoint1, const Fixed& fixedPoint2);
 
-	float toFloat (void) const;
-	int toInt (void) const;
+	// getters and setters
+	int getRawBits () const;
+	void setRawBits (int raw);
+
+	// methods
+	float toFloat () const;
+	int toInt () const;
 
 private:
 	int value;
 	static const int exponent;
 };
 
-std::ostream& operator<< (std::ostream& stream, const Fixed& fixed);
+std::ostream& operator<< (std::ostream& os, const Fixed& fixed);
 
 #endif //FIXED_HPP
