@@ -25,6 +25,10 @@ exercises=(
   "CPP02/ex00"
   "CPP02/ex01"
   "CPP02/ex02"
+  "CPP02/ex03"
+  "CPP03/ex00"
+  "CPP03/ex01"
+  "CPP03/ex02"
 )
 
 for exercise in "${exercises[@]}"; do
