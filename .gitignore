@@ -1,6 +1,9 @@
 # Mac binary
 .DS_Store
 
+# Clion
+scratch
+
 # Cmake ignore
 build/
 .idea/
@@ -50,4 +53,3 @@ _deps
 *.exe
 *.out
 *.app
-
