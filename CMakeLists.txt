@@ -14,7 +14,7 @@ add_executable(cpp1_ex2 CPP01/ex02/main.cpp)
 add_executable(cpp1_ex3 CPP01/ex03/main.cpp CPP01/ex03/HumanB.cpp CPP01/ex03/HumanA.cpp CPP01/ex03/Weapon.cpp)
 add_executable(cpp1_ex4 CPP01/ex04/main.cpp)
 add_executable(cpp1_ex5 CPP01/ex05/main.cpp CPP01/ex05/main.cpp CPP01/ex05/Harl.cpp CPP01/ex05/Harl.hpp)
-add_executable(cpp1_ex6 CPP01/ex06/main.cpp CPP01/ex06/Harl.cpp CPP01/ex06/Harl.hpp )
+add_executable(cpp1_ex6 CPP01/ex06/main.cpp CPP01/ex06/Harl.cpp CPP01/ex06/Harl.hpp)
 
 # CPP 02
 add_executable(cpp2_ex0 CPP02/ex00/main.cpp CPP02/ex00/Fixed.cpp CPP02/ex00/Fixed.hpp)
@@ -28,29 +28,39 @@ add_executable(cpp3_ex1 CPP03/ex01/ClapTrap.cpp CPP03/ex01/main.cpp CPP03/ex01/S
 add_executable(cpp3_ex2 CPP03/ex02/ClapTrap.cpp CPP03/ex02/main.cpp CPP03/ex02/ScavTrap.cpp CPP03/ex02/FragTrap.cpp CPP03/ex02/FragTrap.hpp)
 add_executable(cpp3_ex3 CPP03/ex03/ClapTrap.cpp CPP03/ex03/main.cpp CPP03/ex03/ScavTrap.cpp CPP03/ex03/FragTrap.cpp CPP03/ex03/DiamondTrap.cpp CPP03/ex03/DiamondTrap.hpp)
 
+# CPP 04
+add_executable(cpp4_ex0 CPP04/ex00/main.cpp CPP04/ex00/Animal.hpp CPP04/ex00/Animal.cpp CPP04/ex00/Dog.cpp CPP04/ex00/Dog.hpp CPP04/ex00/Cat.cpp CPP04/ex00/Cat.hpp)
+#add_executable(cpp4_ex1 CPP04/ex01/main.cpp)
+#add_executable(cpp4_ex2 CPP04/ex02/main.cpp)
+#add_executable(cpp4_ex3 CPP04/ex03/main.cpp)
 
 set(targets
-	cpp0_ex0
-	cpp0_ex1
-	cpp0_ex2
+        cpp0_ex0
+        cpp0_ex1
+        cpp0_ex2
 
-	cpp1_ex1
-	cpp1_ex2
-	cpp1_ex3
-	cpp1_ex4
-	cpp1_ex5
+        cpp1_ex1
+        cpp1_ex2
+        cpp1_ex3
+        cpp1_ex4
+        cpp1_ex5
 
-	cpp2_ex0
-	cpp2_ex1
-	cpp2_ex2
-	cpp2_ex3
+        cpp2_ex0
+        cpp2_ex1
+        cpp2_ex2
+        cpp2_ex3
 
-	cpp3_ex0
-	cpp3_ex1
-	cpp3_ex2
-	cpp3_ex3
-		)
+        cpp3_ex0
+        cpp3_ex1
+        cpp3_ex2
+        cpp3_ex3
 
-foreach(target ${targets})
+        cpp4_ex0
+        #		cpp4_ex1
+        #		cpp4_ex2
+        #		cpp4_ex3
+        )
+
+foreach (target ${targets})
     target_compile_options(${target} PRIVATE -Wall -Wextra -std=c++98 -g)
-endforeach()
+endforeach ()
