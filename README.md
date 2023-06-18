@@ -41,3 +41,7 @@ Classes creating objects that doing things, functions that operates on data of t
 Encapsulation:
     Combining the data and functions that operate on the data into one unit
 
+
+*-------------------------*
+
+* Whenever you are dealing with inheritance, you should make any explicit destructors virtual. `virtual ~Base() = default;`

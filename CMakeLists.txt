@@ -22,6 +22,13 @@ add_executable(cpp2_ex1 CPP02/ex01/main.cpp CPP02/ex01/Fixed.cpp CPP02/ex01/Fixe
 add_executable(cpp2_ex2 CPP02/ex02/main.cpp CPP02/ex02/Fixed.cpp CPP02/ex02/Fixed.hpp)
 add_executable(cpp2_ex3 CPP02/ex03/main.cpp CPP02/ex03/Point.cpp CPP02/ex03/bsp.cpp CPP02/ex03/Fixed.cpp)
 
+# CPP 03
+add_executable(cpp3_ex0 CPP03/ex00/ClapTrap.cpp CPP03/ex00/ClapTrap.hpp CPP03/ex00/main.cpp)
+add_executable(cpp3_ex1 CPP03/ex01/ClapTrap.cpp CPP03/ex01/main.cpp CPP03/ex01/ScavTrap.cpp CPP03/ex01/ScavTrap.hpp)
+add_executable(cpp3_ex2 CPP03/ex02/ClapTrap.cpp CPP03/ex02/main.cpp CPP03/ex02/ScavTrap.cpp CPP03/ex02/FragTrap.cpp CPP03/ex02/FragTrap.hpp)
+add_executable(cpp3_ex3 CPP03/ex03/ClapTrap.cpp CPP03/ex03/main.cpp CPP03/ex03/ScavTrap.cpp CPP03/ex03/FragTrap.cpp CPP03/ex03/DiamondTrap.cpp CPP03/ex03/DiamondTrap.hpp)
+
+
 set(targets
 	cpp0_ex0
 	cpp0_ex1
@@ -36,7 +43,13 @@ set(targets
 	cpp2_ex0
 	cpp2_ex1
 	cpp2_ex2
-	cpp2_ex3)
+	cpp2_ex3
+
+	cpp3_ex0
+	cpp3_ex1
+	cpp3_ex2
+	cpp3_ex3
+		)
 
 foreach(target ${targets})
     target_compile_options(${target} PRIVATE -Wall -Wextra -std=c++98 -g)
