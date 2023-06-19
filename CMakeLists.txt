@@ -31,7 +31,7 @@ set(CMAKE_CXX_STANDARD 98)
 # CPP 04
 add_executable(cpp4_ex0 CPP04/ex00/main.cpp CPP04/ex00/Animal.hpp CPP04/ex00/Animal.cpp CPP04/ex00/Dog.cpp CPP04/ex00/Dog.hpp CPP04/ex00/Cat.cpp CPP04/ex00/Cat.hpp)
 add_executable(cpp4_ex1 CPP04/ex01/main.cpp CPP04/ex01/Animal.cpp CPP04/ex01/Cat.cpp CPP04/ex01/Dog.cpp CPP04/ex01/Brain.cpp CPP04/ex01/Brain.hpp)
-#add_executable(cpp4_ex2 CPP04/ex02/main.cpp)
+add_executable(cpp4_ex2 CPP04/ex02/main.cpp CPP04/ex02/Dog.cpp CPP04/ex02/Cat.cpp CPP04/ex02/Brain.cpp CPP04/ex02/Animal.cpp)
 #add_executable(cpp4_ex3 CPP04/ex03/main.cpp)
 
 set(targets
@@ -57,7 +57,7 @@ set(targets
 
         cpp4_ex0
         cpp4_ex1
-        #		cpp4_ex2
+        cpp4_ex2
         #		cpp4_ex3
         )
 
