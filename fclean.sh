@@ -7,6 +7,7 @@ listToClean=(
   CMakeCache.txt
   cmake-build-debug
   cmake_install.cmake
+  scratch
 )
 
 for i in "${listToClean[@]}"; do
@@ -29,6 +30,11 @@ exercises=(
   "CPP03/ex00"
   "CPP03/ex01"
   "CPP03/ex02"
+  "CPP03/ex03"
+  "CPP04/ex00"
+  "CPP04/ex01"
+  "CPP04/ex02"
+  "CPP04/ex03"
 )
 
 for exercise in "${exercises[@]}"; do
