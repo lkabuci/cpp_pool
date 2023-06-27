@@ -35,7 +35,7 @@ set(CMAKE_CXX_STANDARD 98)
 #add_executable(cpp4_ex3 CPP04/ex03/main.cpp CPP04/ex03/AMateria.cpp CPP04/ex03/ICharacter.hpp CPP04/ex03/IMateriaSource.hpp CPP04/ex03/Ice.cpp CPP04/ex03/Ice.hpp CPP04/ex03/Cure.cpp CPP04/ex03/Cure.hpp CPP04/ex03/Character.cpp CPP04/ex03/Character.hpp CPP04/ex03/MateriaSource.cpp CPP04/ex03/MateriaSource.hpp)
 
 # CPP 05
-add_executable(cpp5_ex0)
+add_executable(cpp5_ex0 CPP05/ex00/Bureaucrat.cpp CPP05/ex00/Bureaucrat.hpp CPP05/ex00/main.cpp)
 #add_executable(cpp5_ex1)
 #add_executable(cpp5_ex2)
 #add_executable(cpp5_ex3)
