@@ -2,26 +2,12 @@
 // Created by redone on 6/25/23.
 //
 
-#ifndef POOL_BUREAUCRAT_HPP
-#define POOL_BUREAUCRAT_HPP
+#ifndef CPP05_EX00_BUREAUCRAT_HPP
+#define CPP05_EX00_BUREAUCRAT_HPP
 
 #include <string>
 #include <iostream>
 #include <exception>
-
-class GradeTOOHighException : public std::exception {
-public:
-    virtual const char *what() const throw() {
-        return "Grade is too high";
-    }
-};
-
-class GradeTOOLowException : public std::exception {
-public:
-    virtual const char *what() const throw() {
-        return "Grade is too low";
-    }
-};
 
 class Bureaucrat {
 
@@ -30,8 +16,6 @@ private:
     short grade;
     static short lowGrade;
     static short maxGrade;
-
-    void checker();
 
 public:
     Bureaucrat(const std::string &name, short grade);
@@ -46,15 +30,25 @@ public:
 
     const std::string &getName() const;
 
-    Bureaucrat &operator++();
+    void promotion();
 
-    Bureaucrat operator++(int);
+    void demotion();
 
-    Bureaucrat &operator--();
+    class GradeTooLowException : public std::exception {
+    public:
+        virtual const char *what() const throw() {
+            return "Grade too low";
+        }
+    };
 
-    Bureaucrat operator--(int);
+    class GradeTooHighException : public std::exception {
+    public:
+        virtual const char *what() const throw() {
+            return "Grade too high";
+        }
+    };
 };
 
 std::ostream &operator<<(std::ostream &, Bureaucrat &);
 
-#endif //POOL_BUREAUCRAT_HPP
+#endif

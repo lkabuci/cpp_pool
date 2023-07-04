@@ -8,8 +8,15 @@ short Bureaucrat::lowGrade = 150;
 short Bureaucrat::maxGrade = 1;
 
 Bureaucrat::Bureaucrat(const std::string& name, short grade) : name(name) {
-    this->grade = grade;
-    checker();
+    if (grade < Bureaucrat::maxGrade) {
+        throw Bureaucrat::GradeTooHighException();
+    }
+    else if (grade > Bureaucrat::lowGrade) {
+        throw Bureaucrat::GradeTooLowException();
+    }
+    else {
+        this->grade = grade;
+    }
 }
 
 Bureaucrat::Bureaucrat(const Bureaucrat &other) : name(other.name), grade(other.grade) {
@@ -35,37 +42,22 @@ short Bureaucrat::getGrade() const {
     return grade;
 }
 
-Bureaucrat &Bureaucrat::operator++() {
-    this->grade--;
-    checker();
-    return *this;
+
+void Bureaucrat::promotion() {
+    if (grade <= Bureaucrat::maxGrade)
+        throw Bureaucrat::GradeTooHighException();
+    else {
+        grade --;
+    }
 }
 
-Bureaucrat Bureaucrat::operator++(int) {
-    Bureaucrat tmp = *this;
-    this->grade--;
-    checker();
-    return tmp;
-}
-
-Bureaucrat &Bureaucrat::operator--() {
-    this->grade++;
-    checker();
-    return *this;
-}
-
-Bureaucrat Bureaucrat::operator--(int) {
-    Bureaucrat tmp = *this;
-    this->grade++;
-    checker();
-    return tmp;
-}
-
-void Bureaucrat::checker() {
-    if (grade < Bureaucrat::maxGrade)
-        throw GradeTOOHighException();
-    else if (grade > Bureaucrat::lowGrade)
-        throw GradeTOOLowException();
+void Bureaucrat::demotion() {
+    if (grade >= Bureaucrat::lowGrade) {
+        throw Bureaucrat::GradeTooLowException();
+    }
+    else {
+        grade++;
+    }
 }
 
 std::ostream& operator<<(std::ostream &os, Bureaucrat &bureaucrat) {

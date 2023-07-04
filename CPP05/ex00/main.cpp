@@ -7,14 +7,14 @@
 int main(int argc, char *argv[]) {
     (void) argc, (void) argv;
 
-    Bureaucrat mqadem("Mqadem", 149);
-
-
     try {
+        Bureaucrat mqadem("Mqadem", 150);
         std::cout << mqadem;
-        mqadem--;
+        mqadem.demotion();
         std::cout << mqadem;
-        mqadem--;
+        mqadem.demotion();
+        std::cout << mqadem;
+        mqadem.demotion();
         std::cout << mqadem;
     }
 
@@ -22,7 +22,5 @@ int main(int argc, char *argv[]) {
         std::cerr << ex.what() << std::endl;
     }
 
-
     return 0;
 }
-
