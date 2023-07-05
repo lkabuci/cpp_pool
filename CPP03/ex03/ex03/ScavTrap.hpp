@@ -9,14 +9,17 @@
 
 class ScavTrap : virtual public ClapTrap {
 
-protected:
-	static const int EnergyPoints;
-
 public:
-    explicit ScavTrap(const std::string &name);
 
+    static const int EnergyPoints = 50;
+
+    // Canonical form
+    ScavTrap();
+    ScavTrap(const ScavTrap& scavTrap);
+    ScavTrap& operator=(const ScavTrap& scavTrap);
     ~ScavTrap();
 
+    ScavTrap(const std::string& name);
     void guardGate();
 
 };

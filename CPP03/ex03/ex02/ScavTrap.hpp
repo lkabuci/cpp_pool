@@ -7,16 +7,11 @@
 
 #include "ClapTrap.hpp"
 
-class ScavTrap : virtual public ClapTrap {
-
-protected:
-	static const int EnergyPoints;
+class ScavTrap : public ClapTrap {
 
 public:
-    explicit ScavTrap(const std::string &name);
-
+    explicit ScavTrap(const std::string& name);
     ~ScavTrap();
-
     void guardGate();
 
 };

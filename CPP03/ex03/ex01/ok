@@ -1,0 +1,5 @@
+void ScavTrap::attack(const std::string& target)
+{
+    (void)target;
+        std::cout << "in\n";
+}

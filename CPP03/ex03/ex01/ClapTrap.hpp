@@ -12,20 +12,17 @@ typedef unsigned int uint;
 
 class ClapTrap {
 protected:
-    const std::string name;
+    const std::string& name;
     uint hitPoints;
     uint energyPoints;
     uint attackDamage;
 
 public:
-    explicit ClapTrap(const std::string name);
-
+    explicit ClapTrap(const std::string &name);
     ~ClapTrap();
 
-    virtual void attack(const std::string &target);
-
+    void attack(const std::string& target);
     void takeDamage(uint amount);
-
     void beRepaired(uint amount);
 };
 
