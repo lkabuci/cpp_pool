@@ -8,27 +8,18 @@
 
 int main() {
     try {
-        // Create a bureaucrat and a form
-        Bureaucrat bureaucrat("John Doe", 50);
-        Form form("Application Form", 60, 75);
+        Bureaucrat mqadem("mqadem", 10);
+        Form form("Chahadat l7ayat", 60, 75);
 
-        // Print the bureaucrat and the form
-        std::cout << bureaucrat << std::endl;
         std::cout << form << std::endl;
+        mqadem.signForm(form);
 
-        // Attempt to sign the form with the bureaucrat
-        bureaucrat.signForm(form);
+        Bureaucrat stager("Stager", 150);
+        stager.signForm(form);
 
-        // Print the updated form
         std::cout << form << std::endl;
-
-        // Increment the bureaucrat's grade and try signing the form again
-        bureaucrat.promotion();
-        bureaucrat.signForm(form);
-
-        // Print the updated form
-        std::cout << form << std::endl;
-    } catch (const std::exception& e) {
+    }
+    catch (const std::exception& e) {
         std::cout << "Exception: " << e.what() << std::endl;
     }
 

@@ -8,10 +8,11 @@
 #include <string>
 #include <iostream>
 #include "Bureaucrat.hpp"
+#include <fstream>
 
 class Bureaucrat;
 
-class Form {
+class AForm {
 private:
     const std::string name;
     bool isSigned;
@@ -19,15 +20,15 @@ private:
     const int gradeToExecute;
 
 public:
-    Form();
+    AForm();
 
-    Form(const Form &);
+    AForm(const AForm &);
 
-    Form &operator=(const Form &);
+    AForm &operator=(const AForm &);
 
-    ~Form();
+    ~AForm();
 
-    Form(const std::string name, int gradeToSign, int gradeToExecute);
+    AForm(const std::string name, int gradeToSign, int gradeToExecute);
 
     std::string getName() const;
 
@@ -39,6 +40,8 @@ public:
 
     void beSigned(const Bureaucrat &bureaucrat);
 
+    virtual void execute(Bureaucrat const & executor) const = 0;
+
     class GradeTooHighException : public std::exception {
     public:
         const char *what() const throw();
@@ -48,8 +51,18 @@ public:
     public:
         const char *what() const throw();
     };
+
+    class NotSignedException : public std::exception {
+    public:
+        const char* what() const throw();
+    };
+
+    class FileOpenException : public std::exception {
+    public:
+        const char* what() const throw();
+    };
 };
 
-std::ostream &operator<<(std::ostream &os, const Form &form);
+std::ostream &operator<<(std::ostream &os, const AForm &form);
 
 #endif

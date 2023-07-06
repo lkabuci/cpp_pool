@@ -56,11 +56,34 @@ void Bureaucrat::demotion() {
 
 Bureaucrat::Bureaucrat() : name("default"), grade(150) {}
 
+void Bureaucrat::signForm(AForm &form) {
+    if (form.getIsSigned()) {
+        std::cout << "AForm: " << form.getName() << " is already signed" << std::endl;
+        return;
+    }
+    if (grade > form.getGradeRequiredToSign()) {
+        std::cout << "Bureaucrat: " << name << " can't sign the " << form.getName() << " form, cause of his low grade"
+                  << std::endl;
+        return;
+    }
+    form.beSigned(*this);
+    std::cout << "Take your " << form.getName() << " form, it's already signed" << std::endl;
+}
+
+void Bureaucrat::executeForm(const AForm& form) {
+    try {
+        form.execute(*this);
+        std::cout << getName() << " executed " << form.getName() << std::endl;
+    } catch (const std::exception& e) {
+        std::cout << getName() << " couldn't execute " << form.getName() << " because " << e.what() << std::endl;
+    }
+}
+
 const char *Bureaucrat::GradeTooLowException::what() const throw() {
     return "Grade too low";
 }
 
-const char* Bureaucrat::GradeTooHighException::what() const throw() {
+const char *Bureaucrat::GradeTooHighException::what() const throw() {
     return "Grade too high";
 }
 

@@ -9,9 +9,9 @@
 #include <iostream>
 #include <exception>
 
-#include "Form.hpp"
+#include "AForm.hpp"
 
-class Form;
+class AForm;
 
 class Bureaucrat {
 
@@ -40,7 +40,9 @@ public:
 
     void demotion();
 
-    void signForm(Form&);
+    void signForm(AForm&);
+
+    void executeForm(AForm const & form);
 
     class GradeTooLowException : public std::exception {
     public:
