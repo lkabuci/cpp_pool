@@ -15,31 +15,41 @@ class Form {
 private:
     const std::string name;
     bool isSigned;
-    const int gradeRequiredToSign;
-    const int gradeRequiredToExecute;
+    const int gradeToSign;
+    const int gradeToExecute;
 
 public:
-    Form(const std::string& name, int gradeRequiredToSign, int gradeRequiredToExecute);
+    Form();
+
+    Form(const Form &);
+
+    Form &operator=(const Form &);
+
     ~Form();
 
+    Form(const std::string name, int gradeToSign, int gradeToExecute);
+
     std::string getName() const;
+
     bool getIsSigned() const;
+
     int getGradeRequiredToSign() const;
+
     int getGradeRequiredToExecute() const;
 
-    void beSigned(const Bureaucrat& bureaucrat);
+    void beSigned(const Bureaucrat &bureaucrat);
 
     class GradeTooHighException : public std::exception {
     public:
-        const char* what() const throw();
+        const char *what() const throw();
     };
 
     class GradeTooLowException : public std::exception {
     public:
-        const char* what() const throw();
+        const char *what() const throw();
     };
 };
 
-std::ostream& operator<<(std::ostream& os, const Form& form);
+std::ostream &operator<<(std::ostream &os, const Form &form);
 
 #endif

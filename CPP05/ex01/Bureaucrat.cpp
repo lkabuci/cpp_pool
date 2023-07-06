@@ -7,14 +7,12 @@
 short Bureaucrat::lowGrade = 150;
 short Bureaucrat::maxGrade = 1;
 
-Bureaucrat::Bureaucrat(const std::string& name, short grade) : name(name) {
+Bureaucrat::Bureaucrat(const std::string name, short grade) : name(name) {
     if (grade < Bureaucrat::maxGrade) {
         throw Bureaucrat::GradeTooHighException();
-    }
-    else if (grade > Bureaucrat::lowGrade) {
+    } else if (grade > Bureaucrat::lowGrade) {
         throw Bureaucrat::GradeTooLowException();
-    }
-    else {
+    } else {
         this->grade = grade;
     }
 }
@@ -26,7 +24,7 @@ Bureaucrat::Bureaucrat(const Bureaucrat &other) : name(other.name), grade(other.
 Bureaucrat &Bureaucrat::operator=(const Bureaucrat &other) {
     if (this == &other)
         return *this;
-    const_cast<std::string&>(name) = other.name;
+    const_cast<std::string &>(name) = other.name;
     grade = other.grade;
     return *this;
 }
@@ -34,7 +32,7 @@ Bureaucrat &Bureaucrat::operator=(const Bureaucrat &other) {
 Bureaucrat::~Bureaucrat() {
 }
 
-const std::string &Bureaucrat::getName() const {
+std::string Bureaucrat::getName() const {
     return name;
 }
 
@@ -42,38 +40,50 @@ short Bureaucrat::getGrade() const {
     return grade;
 }
 
-
 void Bureaucrat::promotion() {
-    if (grade <= Bureaucrat::maxGrade)
+    if (grade <= Bureaucrat::maxGrade) {
         throw Bureaucrat::GradeTooHighException();
-    else {
-        grade --;
     }
+    grade--;
 }
 
 void Bureaucrat::demotion() {
     if (grade >= Bureaucrat::lowGrade) {
         throw Bureaucrat::GradeTooLowException();
     }
-    else {
-        grade++;
-    }
+    grade++;
 }
 
-void Bureaucrat::signForm(Form& form) {
-    try {
-        form.beSigned(*this);
-        std::cout << getName() << " signed " << form.getName() << std::endl;
-    } catch (const std::exception& e) {
-        std::cout << getName() << " couldn't sign " << form.getName() << " because " << e.what() << std::endl;
+Bureaucrat::Bureaucrat() : name("default"), grade(150) {}
+
+void Bureaucrat::signForm(Form &form) {
+    if (form.getIsSigned()) {
+        std::cout << "Form: " << form.getName() << " is already signed" << std::endl;
+        return;
     }
+    if (grade > form.getGradeRequiredToSign()) {
+        std::cout << "Bureaucrat: " << name << " can't sign the " << form.getName() << " form, cause of his low grade"
+                  << std::endl;
+        return;
+    }
+    form.beSigned(*this);
+    std::cout << "Take your " << form.getName() << " form, it's already signed" << std::endl;
 }
 
-std::ostream& operator<<(std::ostream &os, Bureaucrat &bureaucrat) {
-    os  << bureaucrat.getName()
-        << ", bureaucrat grade "
-        << bureaucrat.getGrade()
-        << "."
-        << std::endl;
+const char *Bureaucrat::GradeTooLowException::what() const throw() {
+    return "Grade too low";
+}
+
+const char *Bureaucrat::GradeTooHighException::what() const throw() {
+    return "Grade too high";
+}
+
+
+std::ostream &operator<<(std::ostream &os, Bureaucrat &bureaucrat) {
+    os << bureaucrat.getName()
+       << ", bureaucrat grade "
+       << bureaucrat.getGrade()
+       << "."
+       << std::endl;
     return os;
 }
