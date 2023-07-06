@@ -8,13 +8,10 @@ int main(int argc, char *argv[]) {
     (void) argc, (void) argv;
 
     try {
-        Bureaucrat mqadem("Mqadem", 150);
-        std::cout << mqadem;
+        Bureaucrat mqadem("Mqadem", 3);
         mqadem.demotion();
         std::cout << mqadem;
-        mqadem.demotion();
-        std::cout << mqadem;
-        mqadem.demotion();
+        mqadem.promotion();
         std::cout << mqadem;
     }
 
