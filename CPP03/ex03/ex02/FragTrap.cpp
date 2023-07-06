@@ -4,9 +4,6 @@
 
 #include "FragTrap.hpp"
 
-const int FragTrap::HitPoints = 100;
-const int FragTrap::AttackDamage = 30;
-
 FragTrap::FragTrap(const std::string &name) : ClapTrap(name) {
     this->hitPoints = 100;
     this->energyPoints = 100;

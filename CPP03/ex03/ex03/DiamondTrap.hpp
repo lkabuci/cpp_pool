@@ -14,7 +14,7 @@ private:
     std::string diamondName;
 
 public:
-    explicit DiamondTrap(const std::string name);
+    explicit DiamondTrap(const std::string &name);
 
     virtual ~DiamondTrap();
 

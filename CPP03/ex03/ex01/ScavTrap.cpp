@@ -4,8 +4,6 @@
 
 #include "ScavTrap.hpp"
 
-const int ScavTrap::EnergyPoints = 50;
-
 void ScavTrap::guardGate() {
     std::cout << "ScavTrap " << name << " is now in Gatekeeper mode." << std::endl;
 }

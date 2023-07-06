@@ -7,16 +7,9 @@
 
 #include "ClapTrap.hpp"
 
-class FragTrap : virtual public ClapTrap {
-protected:
-	static const int HitPoints;
-	static const int AttackDamage;
-
-public:
-    explicit FragTrap(const std::string &name);
-
+class FragTrap : public ClapTrap{
+    explicit FragTrap(const std::string& name);
     ~FragTrap();
-
     void highFivesGuys();
 };
 

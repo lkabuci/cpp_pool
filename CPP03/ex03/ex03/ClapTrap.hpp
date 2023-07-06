@@ -18,14 +18,14 @@ protected:
     uint attackDamage;
 
 public:
-    explicit ClapTrap(const std::string name);
-
+    ClapTrap();
+    ClapTrap(const ClapTrap& clapTrap);
+    ClapTrap& operator=(const ClapTrap& clapTrap);
+    ClapTrap(const std::string name);
     ~ClapTrap();
 
-    virtual void attack(const std::string &target);
-
+    void attack(const std::string& target);
     void takeDamage(uint amount);
-
     void beRepaired(uint amount);
 };
 
