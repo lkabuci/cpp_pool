@@ -17,13 +17,13 @@ add_executable(cpp1_ex5 CPP01/ex05/main.cpp CPP01/ex05/main.cpp CPP01/ex05/Harl.
 add_executable(cpp1_ex6 CPP01/ex06/main.cpp CPP01/ex06/Harl.cpp CPP01/ex06/Harl.hpp)
 
 # CPP 02
-add_executable(cpp3_ex0 CPP02/ex00/main.cpp CPP02/ex00/Fixed.cpp CPP02/ex00/Fixed.hpp)
+add_executable(cpp2_ex0 CPP02/ex00/main.cpp CPP02/ex00/Fixed.cpp CPP02/ex00/Fixed.hpp)
 add_executable(cpp2_ex1 CPP02/ex01/main.cpp CPP02/ex01/Fixed.cpp CPP02/ex01/Fixed.hpp CPP02/ex01/Fixed.cpp CPP02/ex01/Fixed.hpp CPP02/ex01/main.cpp)
 add_executable(cpp2_ex2 CPP02/ex02/main.cpp CPP02/ex02/Fixed.cpp CPP02/ex02/Fixed.hpp)
 add_executable(cpp2_ex3 CPP02/ex03/main.cpp CPP02/ex03/Point.cpp CPP02/ex03/bsp.cpp CPP02/ex03/Fixed.cpp)
 
 # CPP 03
-#add_executable(cpp3_ex0 CPP03/ex00/ClapTrap.cpp CPP03/ex00/ClapTrap.hpp CPP03/ex00/main.cpp)
+add_executable(cpp3_ex0 CPP03/ex00/ClapTrap.cpp CPP03/ex00/ClapTrap.hpp CPP03/ex00/main.cpp)
 add_executable(cpp3_ex1 CPP03/ex01/ClapTrap.cpp CPP03/ex01/main.cpp CPP03/ex01/ScavTrap.cpp CPP03/ex01/ScavTrap.hpp)
 add_executable(cpp3_ex2 CPP03/ex02/ClapTrap.cpp CPP03/ex02/main.cpp CPP03/ex02/ScavTrap.cpp CPP03/ex02/FragTrap.cpp CPP03/ex02/FragTrap.hpp)
 add_executable(cpp3_ex3 CPP03/ex03/ClapTrap.cpp CPP03/ex03/main.cpp CPP03/ex03/ScavTrap.cpp CPP03/ex03/FragTrap.cpp CPP03/ex03/DiamondTrap.cpp CPP03/ex03/DiamondTrap.hpp)
@@ -36,7 +36,7 @@ add_executable(cpp4_ex3 CPP04/ex03/main.cpp CPP04/ex03/AMateria.cpp CPP04/ex03/I
 
 # CPP 05
 add_executable(cpp5_ex0 CPP05/ex00/Bureaucrat.cpp CPP05/ex00/Bureaucrat.hpp CPP05/ex00/main.cpp)
-add_executable(cpp5_ex1 CPP05/ex01/AForm.cpp CPP05/ex01/Bureaucrat.cpp CPP05/ex01/main.cpp)
+add_executable(cpp5_ex1 CPP05/ex01/Form.cpp CPP05/ex01/Bureaucrat.cpp CPP05/ex01/main.cpp)
 add_executable(cpp5_ex2 CPP05/ex02/RobotomyRequestForm.cpp CPP05/ex02/ShrubberyCreationForm.cpp CPP05/ex02/ShrubberyCreationForm.hpp CPP05/ex02/PresidentialPardonForm.cpp CPP05/ex02/PresidentialPardonForm.hpp CPP05/ex02/main.cpp CPP05/ex02/Bureaucrat.cpp CPP05/ex02/AForm.cpp)
 add_executable(cpp5_ex3 CPP05/ex03/ShrubberyCreationForm.cpp CPP05/ex02/main.cpp CPP05/ex03/AForm.cpp CPP05/ex03/Bureaucrat.cpp CPP05/ex03/main.cpp CPP05/ex03/PresidentialPardonForm.cpp CPP05/ex03/RobotomyRequestForm.cpp CPP05/ex03/Intern.cpp CPP05/ex03/Intern.hpp)
 
