@@ -38,7 +38,7 @@ add_executable(cpp4_ex3 CPP04/ex03/main.cpp CPP04/ex03/AMateria.cpp CPP04/ex03/I
 add_executable(cpp5_ex0 CPP05/ex00/Bureaucrat.cpp CPP05/ex00/Bureaucrat.hpp CPP05/ex00/main.cpp)
 add_executable(cpp5_ex1 CPP05/ex01/Form.cpp CPP05/ex01/Bureaucrat.cpp CPP05/ex01/main.cpp)
 add_executable(cpp5_ex2 CPP05/ex02/RobotomyRequestForm.cpp CPP05/ex02/ShrubberyCreationForm.cpp CPP05/ex02/ShrubberyCreationForm.hpp CPP05/ex02/PresidentialPardonForm.cpp CPP05/ex02/PresidentialPardonForm.hpp CPP05/ex02/main.cpp CPP05/ex02/Bureaucrat.cpp CPP05/ex02/AForm.cpp)
-add_executable(cpp5_ex3 CPP05/ex03/ShrubberyCreationForm.cpp CPP05/ex02/main.cpp CPP05/ex03/AForm.cpp CPP05/ex03/Bureaucrat.cpp CPP05/ex03/main.cpp CPP05/ex03/PresidentialPardonForm.cpp CPP05/ex03/RobotomyRequestForm.cpp CPP05/ex03/Intern.cpp CPP05/ex03/Intern.hpp)
+add_executable(cpp5_ex3 CPP05/ex03/ShrubberyCreationForm.cpp CPP05/ex03/AForm.cpp CPP05/ex03/Bureaucrat.cpp CPP05/ex03/main.cpp CPP05/ex03/PresidentialPardonForm.cpp CPP05/ex03/RobotomyRequestForm.cpp CPP05/ex03/Intern.cpp CPP05/ex03/Intern.hpp)
 
 set(targets
         cpp0_ex0

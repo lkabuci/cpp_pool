@@ -12,7 +12,7 @@ typedef unsigned int uint;
 
 class ClapTrap {
 private:
-    const std::string& name;
+    const std::string name;
     uint hitPoints;
     uint energyPoints;
     uint attackDamage;
