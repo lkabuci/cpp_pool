@@ -40,6 +40,11 @@ add_executable(cpp5_ex1 CPP05/ex01/Form.cpp CPP05/ex01/Bureaucrat.cpp CPP05/ex01
 add_executable(cpp5_ex2 CPP05/ex02/RobotomyRequestForm.cpp CPP05/ex02/ShrubberyCreationForm.cpp CPP05/ex02/ShrubberyCreationForm.hpp CPP05/ex02/PresidentialPardonForm.cpp CPP05/ex02/PresidentialPardonForm.hpp CPP05/ex02/main.cpp CPP05/ex02/Bureaucrat.cpp CPP05/ex02/AForm.cpp)
 add_executable(cpp5_ex3 CPP05/ex03/ShrubberyCreationForm.cpp CPP05/ex03/AForm.cpp CPP05/ex03/Bureaucrat.cpp CPP05/ex03/main.cpp CPP05/ex03/PresidentialPardonForm.cpp CPP05/ex03/RobotomyRequestForm.cpp CPP05/ex03/Intern.cpp CPP05/ex03/Intern.hpp)
 
+# CPP 06
+add_executable(cpp6_ex0 CPP06/ex00/ScalarConverter.cpp CPP06/ex00/main.cpp)
+add_executable(cpp6_ex1 CPP06/ex01/Serializer.cpp CPP06/ex01/Serializer.hpp CPP06/ex01/main.cpp)
+add_executable(cpp6_ex2 CPP06/ex02/Base.cpp CPP06/ex02/Base.hpp CPP06/ex02/A.cpp CPP06/ex02/A.hpp CPP06/ex02/B.cpp CPP06/ex02/B.hpp CPP06/ex02/C.cpp CPP06/ex02/C.hpp CPP06/ex02/main.cpp)
+
 set(targets
         cpp0_ex0
         cpp0_ex1
@@ -70,6 +75,10 @@ set(targets
         cpp5_ex1
         cpp5_ex2
         cpp5_ex3
+
+        cpp6_ex0
+        cpp6_ex1
+        cpp6_ex2
         )
 
 foreach (target ${targets})
