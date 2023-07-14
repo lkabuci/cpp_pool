@@ -5,9 +5,8 @@
 #ifndef POOL_SERIALIZER_HPP
 #define POOL_SERIALIZER_HPP
 
-
-#include <cstdint>
 #include <iostream>
+#include <stdint.h>
 
 struct Data {
     int value;
@@ -17,8 +16,8 @@ struct Data {
 
 class Serializer {
 public:
-    static uintptr_t serialize(Data* ptr);
-    static Data* deserialize(uintptr_t raw);
+    static uintptr_t serialize(Data *ptr);
+    static Data *deserialize(uintptr_t raw);
 };
 
 

@@ -33,11 +33,11 @@ Base *generate() {
     int idx = rand() % 3;
     switch (idx) {
         case 0:
-            return new A();
+            return dynamic_cast<Base*>(new A());
         case 1:
-            return new B();
+            return dynamic_cast<Base*>(new B());
         case 2:
-            return new C();
+            return dynamic_cast<Base*>(new C());
     };
     return NULL;
 }
@@ -49,6 +49,8 @@ void identify(Base *p) {
         std::cout << "B";
     } else if (dynamic_cast<C *>(p) != NULL) {
         std::cout << "C";
+    } else {
+        std::cout << "Unknown type";
     }
     std::cout << std::endl;
 }
