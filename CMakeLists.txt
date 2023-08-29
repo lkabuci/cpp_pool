@@ -50,6 +50,12 @@ add_executable(cpp7_ex0 CPP07/ex00/main.cpp CPP07/ex01/iter.hpp)
 add_executable(cpp7_ex1 CPP07/ex01/main.cpp)
 add_executable(cpp7_ex2 CPP07/ex02/main.cpp)
 
+# CPP 08
+add_executable(cpp8_ex0 CPP08/ex00/main.cpp)
+add_executable(cpp8_ex1 CPP08/ex01/Span.cpp CPP08/ex01/main.cpp)
+add_executable(cpp8_ex2 CPP08/ex02/main.cpp)
+
+
 set(targets
         cpp0_ex0
         cpp0_ex1
@@ -88,6 +94,10 @@ set(targets
         cpp7_ex0
         cpp7_ex1
         cpp7_ex2
+
+        cpp8_ex0
+        cpp8_ex1
+        cpp8_ex2
         )
 
 foreach (target ${targets})
