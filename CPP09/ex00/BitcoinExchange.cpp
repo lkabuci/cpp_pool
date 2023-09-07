@@ -8,7 +8,6 @@ static vData parseFile(const std::string &filename, char delim);
 static struct data parseRow(std::string row, char delim);
 static void parseDate(struct data *dt, std::string &date);
 static float parseValue(std::string &value, char delim);
-static void displayOutput(vData database, vData input);
 static std::string trimallspaces(std::string basicString);
 static std::string &trim(std::string &s);
 static bool isDateExists(struct data data);
@@ -22,11 +21,11 @@ BitcoinExchange::BitcoinExchange(const std::string &filename) : inputFileName(fi
     database = parseFile("data.csv", ',');
     inputFile = parseFile(inputFileName, '|');
     std::sort(database.begin(), database.end(), compareDate);
-    displayOutput(database, inputFile);
 }
 
-static void displayOutput(vData database, vData input) {
-    for (vData::iterator inputItr = input.begin(); inputItr != input.end(); ++inputItr) {
+// database first
+void BitcoinExchange::display() {
+    for (vData::iterator inputItr = inputFile.begin(); inputItr != inputFile.end(); ++inputItr) {
         if (!isDateExists(*inputItr)) {
             std::cout << "Error: bad input => " << inputItr->iso << std::endl;
             continue;

@@ -31,7 +31,7 @@ private:
 
 public:
     explicit BitcoinExchange(const std::string& filename);
-
+    void display( void );
 };
 
 
