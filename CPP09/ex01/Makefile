@@ -1,4 +1,4 @@
-NAME = ex01
+NAME = RPN
 
 all:
 	c++ -Wall -Wextra -Werror -o $(NAME) *.cpp -std=c++98
