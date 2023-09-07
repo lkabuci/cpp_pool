@@ -2,100 +2,192 @@
 // Created by redone on 8/30/23.
 //
 
-#include <algorithm>
 #include "BitcoinExchange.hpp"
 
+static vData parseFile(const std::string &filename, char delim);
+static struct data parseRow(std::string row, char delim);
+static void parseDate(struct data *dt, std::string &date);
+static float parseValue(std::string &value, char delim);
+static void displayOutput(vData database, vData input);
+static std::string trimallspaces(std::string basicString);
+static std::string &trim(std::string &s);
+static bool isDateExists(struct data data);
 static bool isLeapYear(int year);
+static bool isAllDigit(std::string str);
+static bool compareDate(const struct data &dt1, const struct data &dt2);
+static bool areDatesEqual(const struct data &dt1, const struct data &dt2);
 
-static bool isDateExists(struct date);
-
-static struct date get_date(const std::string &str);
-
-keyValue getKeyValues(const std::string &filename, char sep);
-
-static inline std::string &trim(std::string &s);
 
 BitcoinExchange::BitcoinExchange(const std::string &filename) : inputFileName(filename) {
-    database = getKeyValues("data.csv", ',');
-    inputFile = getKeyValues(inputFileName, '|');
+    database = parseFile("data.csv", ',');
+    inputFile = parseFile(inputFileName, '|');
+    std::sort(database.begin(), database.end(), compareDate);
+    displayOutput(database, inputFile);
 }
 
-keyValue getKeyValues(const std::string &filename, char sep) {
-    keyValue kv;
-    std::ifstream file;
+static void displayOutput(vData database, vData input) {
+    for (vData::iterator inputItr = input.begin(); inputItr != input.end(); ++inputItr) {
+        if (!isDateExists(*inputItr)) {
+            std::cout << "Error: bad input => " << inputItr->iso << std::endl;
+            continue;
+        }
+        if (inputItr->value == -1) {
+            std::cout << "Error: not a positive number." << std::endl;
+            continue;
+        }
+        if (inputItr->value == -2) {
+            std::cout << "Error: too large a number." << std::endl;
+            continue;
+        }
+        // 2011-01-03 => 3 = 0.9
+        vData::iterator dbPrevItr = database.begin();
+        for (vData::iterator dbItr = database.begin(); dbItr != database.end(); ++ dbItr) {
+            if (areDatesEqual(*inputItr, *dbItr)) {
+                std::cout << inputItr->iso << " => " << inputItr->value << " = " << inputItr->value * dbItr->value << std::endl;
+                break;
+            }
+            else if (compareDate(*inputItr, *dbItr)) {
+                std::cout << inputItr->iso << " => " << inputItr->value << " = " << inputItr->value * dbPrevItr->value << std::endl;
+                break;
+            }
+            dbPrevItr = dbItr;
+        }
+    }
+}
+
+static vData parseFile(const std::string &filename, char delim) {
+    std::fstream file;
     file.open(filename.c_str());
     if (file.fail()) {
-        std::cerr << "Error: opening " << filename << std::endl;
+        std::cerr << "Error while opening the file" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+    std::string row;
+    vData vdata;
+
+    std::getline(file, row);
+    if (trimallspaces(row) != "date|value" && delim == '|') {
+        std::cerr << "invalid header file" << std::endl;
         exit(EXIT_FAILURE);
     }
 
-    std::vector<std::string> row;
-    std::string line, word;
-
-    getline(file, line);
-    while (getline(file, line)) {
-        row.clear();
-
-        line = trim(line);
-
-        std::stringstream s(line);
-
-        while (getline(s, word, sep)) {
-            word = trim(word);
-            row.push_back(word);
-        }
-        struct date dt = get_date(row[0]);
-        float exchange = atof(row[1].c_str());
-        kv.push_back(std::make_pair(dt, exchange));
+    while (std::getline(file, row)) {
+        trim(row);
+        struct data dt = parseRow(row, delim);
+        vdata.push_back(dt);
     }
+
     file.close();
-    return kv;
+    return vdata;
 }
 
-struct date get_date(const std::string &str) {
-    std::string value;
-    std::stringstream ss(str);
-    std::vector<std::string> row;
-
-    while (getline(ss, value, '-')) {
-        row.push_back(value);
-    }
-
-    // check if a non integer exists
-    for (int i = 0; i <= 2; i++) {
-        for (int j = 0; row[i][j]; j++) {
-            if (std::isdigit(row[i][j]))
-                continue;
-            row[i] = "-1";
-            break;
+static std::string trimallspaces(std::string basicString) {
+    std::string noSpaceStr;
+    for (int i = 0; basicString[i]; i++) {
+        if (!std::isspace(basicString[i])) {
+            noSpaceStr += basicString[i];
         }
-        std::cout << row[i] << std::endl;
     }
-
-    return (struct date) {
-            atoi(row[0].c_str()),
-            atoi(row[1].c_str()),
-            atoi(row[2].c_str())
-    };
+    return noSpaceStr;
 }
 
-static inline std::string &trim(std::string &s) {
-    s.erase(s.begin(), std::find_if(s.begin(), s.end(), std::not1(std::ptr_fun<int, int>(std::isspace))));
-    s.erase(std::find_if(s.rbegin(), s.rend(), std::not1(std::ptr_fun<int, int>(std::isspace))).base(), s.end());
+static struct data parseRow(std::string row, char delim) {
+    std::stringstream ss(row);
+    std::string buffer;
+    int counter = 0;
+    std::vector<std::string> vstring;
+    struct data data = {};
+
+    data.value = -1;
+
+    while (std::getline(ss, buffer, delim)) {
+        vstring.push_back(trim(buffer));
+        ++counter;
+    }
+    data.iso = vstring[0];
+    parseDate(&data, vstring[0]);
+    if (counter == 2) {
+        data.value = parseValue(vstring[1], delim);
+    }
+    return data;
+}
+
+static void parseDate(struct data *dt, std::string &date) {
+    std::stringstream ss(date);
+    std::string buffer;
+    std::vector<std::string> strvect;
+
+    dt->day = -1;
+    dt->month = -1;
+    dt->year = -1;
+    int counter = 0;
+
+    while (std::getline(ss, buffer, '-')) {
+        if (isAllDigit(buffer)) {
+            strvect.push_back(buffer);
+        } else {
+            strvect.push_back(std::string("-1"));
+        }
+        ++counter;
+    }
+    if (counter != 3) {
+        return;
+    }
+    dt->year = atoi(strvect[0].c_str());
+    dt->month = atoi(strvect[1].c_str());
+    dt->day = atoi(strvect[2].c_str());
+}
+
+// -1 means negative value
+// -2 means too large number
+static float parseValue(std::string &value, char delim) {
+    std::stringstream ss(value);
+    std::string buffer;
+    float ret;
+    ss >> ret;
+    ss >> std::ws;
+    if (!ss.eof() || ret < 0) {
+        return -1;
+    }
+    if (delim == '|' && ret > 1000) {
+        return -2;
+    }
+    return ret;
+}
+
+static std::string &trim(std::string &s) {
+    std::string::iterator lit = s.begin();
+    while (lit != s.end() && std::isspace(*lit)) {
+        ++lit;
+    }
+    s.erase(s.begin(), lit);
+    std::string::reverse_iterator rit = s.rbegin();
+    while (rit != s.rend() && std::isspace(*rit)) {
+        ++rit;
+    }
+    s.erase(rit.base(), s.end());
     return s;
 }
 
-static bool isDateExists(struct date dt) {
-    if (dt.month > 12 || dt.day > 31 || dt.month <= 0 || dt.day <= 0 || dt.year < 0)
+static bool isAllDigit(std::string str) {
+    std::stringstream ss(str);
+    int val;
+    ss >> val;
+    ss >> std::ws;
+    return ss.eof();
+}
+
+static bool isDateExists(struct data data) {
+    if (data.month > 12 || data.day > 31 || data.month <= 0 || data.day <= 0 || data.year < 0)
         return false;
-    if (((0x0A50 & (1 << dt.month)) != 0) && dt.day == 31) {
+    if (data.day == 31 && ((data.month == 4) || (data.month == 6) || (data.month == 9) || (data.month == 11))) {
         return false;
     }
-    if (dt.month == 2) {
-        if (dt.day >= 30) {
+    if (data.month == 2) {
+        if (data.day >= 30) {
             return false;
         }
-        if (!isLeapYear(dt.year) && dt.day == 29) {
+        if (!isLeapYear(data.year) && data.day == 29) {
             return false;
         }
     }
@@ -107,4 +199,24 @@ static bool isLeapYear(int year) {
         return true;
     }
     return false;
+}
+
+static bool compareDate(const struct data &dt1, const struct data &dt2) {
+    if (dt1.year < dt2.year) {
+        return true;
+    } else if (dt1.year > dt2.year) {
+        return false;
+    } else { // Years are equal, compare months
+        if (dt1.month < dt2.month) {
+            return true;
+        } else if (dt1.month > dt2.month) {
+            return false;
+        } else { // Months are equal, compare days
+            return dt1.day < dt2.day;
+        }
+    }
+}
+
+static bool areDatesEqual(const struct data &dt1, const struct data &dt2) {
+    return dt1.day == dt2.day && dt1.month == dt2.month && dt1.year == dt2.year;
 }

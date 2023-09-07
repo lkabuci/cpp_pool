@@ -9,28 +9,29 @@
 #include <iostream>
 #include <sstream>
 #include <cstdlib>
-#include <list>
-#include <map>
-#include <cstdlib>
 #include <fstream>
 #include <vector>
+#include <algorithm>
 
-struct date {
+struct data {
     int year;
     int month;
     int day;
+    float value;
+    std::string iso;
 };
 
-typedef std::vector<std::pair<struct date, float> > keyValue;
+typedef std::vector<struct data> vData;
 
 class BitcoinExchange {
 private:
     const std::string& inputFileName;
-    keyValue database;
-    keyValue inputFile;
+    vData database;
+    vData inputFile;
 
 public:
     explicit BitcoinExchange(const std::string& filename);
+
 };
 
 
