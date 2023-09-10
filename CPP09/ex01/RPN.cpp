@@ -4,10 +4,13 @@
 
 #include "RPN.hpp"
 
-static std::queue<std::string> getQueue(const char*);
+static std::queue<std::string> getQueue(const char *);
+
 static bool isElementValid(std::string basicString);
-static bool isOperand(std::string& str);
-static void operate(std::stack<int>&, char);
+
+static bool isOperand(std::string &str);
+
+static void operate(std::stack<int> &, char);
 
 static int getResult(int v1, int v2, char op);
 
@@ -16,8 +19,7 @@ RPN::RPN(const char *args) {
     while (!queue.empty()) {
         if (!isOperand(queue.front())) {
             stack.push(atoi(queue.front().c_str()));
-        }
-        else {
+        } else {
             operate(stack, queue.front()[0]);
         }
         queue.pop();
@@ -37,7 +39,7 @@ void RPN::displayResult() {
     stack = tmp;
 }
 
-static void operate(std::stack<int>& stack, char op) {
+static void operate(std::stack<int> &stack, char op) {
     if (stack.size() < 2) {
         std::cerr << "Error: the stack is empty for another operation" << std::endl;
         exit(EXIT_FAILURE);
@@ -61,9 +63,9 @@ static int getResult(int v1, int v2, char op) {
         return v2 / v1;
 }
 
-static std::queue<std::string> getQueue(const char* s) {
+static std::queue<std::string> getQueue(const char *s) {
     std::string str(s);
-    std::stringstream ss (str);
+    std::stringstream ss(str);
     std::string element;
     std::queue<std::string> queue;
     while (std::getline(ss, element, ' ')) {
@@ -83,7 +85,7 @@ static bool isElementValid(std::string basicString) {
     if (isOperand(basicString)) {
         return true;
     }
-    std::stringstream ss (basicString);
+    std::stringstream ss(basicString);
     int value;
     ss >> value;
     if (ss.fail()) {
@@ -92,6 +94,6 @@ static bool isElementValid(std::string basicString) {
     return true;
 }
 
-static bool isOperand(std::string& str) {
+static bool isOperand(std::string &str) {
     return std::string("+-*/").find(str[0]) != std::string::npos;
 }
