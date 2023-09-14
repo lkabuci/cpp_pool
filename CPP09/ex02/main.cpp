@@ -10,16 +10,19 @@ void fillContainer(T&, const char **);
 int main(int argc, const char *argv[]) {
 
     if (argc < 2) {
-        std::cerr << "Usage: ./PmergeMe {list of random numbers}." << std::endl;
+        std::cerr << "Usage: ./PmergeMe {m_listDeque of random numbers}." << std::endl;
         return 1;
     }
     std::deque<int> dq;
     fillContainer(dq, argv);
     PmergeMe Sdeque(dq);
-    Sdeque.display_list();
-    Sdeque.display_pairGroups();
-    Sdeque.display_largest();
 
+    for (std::deque<int>::iterator it = dq.begin(); it != dq.end() - 1; it ++) {
+        std::cout << *it << " ";
+        if (*it > *it + 1) {
+            exit(EXIT_FAILURE);
+        }
+    }
     return 0;
 }
 
@@ -30,7 +33,11 @@ void fillContainer(T& container, const char *args[]) {
         long v = strtol(args[i], &pEnd, 10);
         while (*pEnd && std::iswspace(*pEnd)) ++pEnd;
         if (*pEnd != 0) {
-            std::cerr << "Error: invalid number: " << args[i] << std::endl;
+            std::cerr << "Error: invalid number \"" << args[i] << "\"" << std::endl;
+            exit(EXIT_FAILURE);
+        }
+        if (v < 0) {
+            std::cerr << "Error: negative number \"" << args[i] << "\"" << std::endl;
             exit(EXIT_FAILURE);
         }
         container.push_back(v);

@@ -24,22 +24,25 @@ class PmergeMe {
 public:
     explicit PmergeMe(std::deque<int> &deque);
 
-    const std::deque<int> &getDeque() const;
-
-    void sortDeque();
-
-    /* displaying */
-    void display_pairGroups();
-    void display_list();
-    void display_largest();
-
 private:
-    std::deque<int> list;
-    pair_dq pairs;
-    std::deque<int> mainChain;
-    void prepareSequences();
-    void insertion();
 
+
+    // Deque Container members
+    pair_dq m_pairDeque;
+    std::deque<int>& m_listDeque;
+    std::deque<int> m_mainChainDeque;
+    std::deque<int> m_pendsDeque;
+    std::deque<int> m_jacobSecDeque;
+    void groupPairsDeque();
+    void sortPairsDeque(size_t index);
+    void insertionDeque();
+    void getSequencesDeque();
+
+    // List Container members
+
+
+    // Common
+    int m_oddNumber;
 };
 
 #endif //POOL_PMERGEME_HPP
