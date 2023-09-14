@@ -55,6 +55,11 @@ add_executable(cpp8_ex0 CPP08/ex00/main.cpp)
 add_executable(cpp8_ex1 CPP08/ex01/Span.cpp CPP08/ex01/main.cpp)
 add_executable(cpp8_ex2 CPP08/ex02/main.cpp)
 
+# CPP 09
+add_executable(cpp9_ex0 CPP09/ex00/main.cpp CPP09/ex00/BitcoinExchange.cpp)
+add_executable(cpp9_ex1 CPP09/ex01/main.cpp CPP09/ex01/RPN.cpp)
+add_executable(cpp9_ex2 CPP09/ex02/main.cpp CPP09/ex02/PmergeMe.cpp)
+
 
 set(targets
         cpp0_ex0
@@ -98,6 +103,10 @@ set(targets
         cpp8_ex0
         cpp8_ex1
         cpp8_ex2
+
+        cpp9_ex0
+        cpp9_ex1
+        cpp9_ex2
         )
 
 foreach (target ${targets})
