@@ -18,7 +18,6 @@ Bureaucrat::Bureaucrat(const std::string name, short grade) : name(name) {
 }
 
 Bureaucrat::Bureaucrat(const Bureaucrat &other) : name(other.name), grade(other.grade) {
-    *this = other;
 }
 
 Bureaucrat &Bureaucrat::operator=(const Bureaucrat &other) {

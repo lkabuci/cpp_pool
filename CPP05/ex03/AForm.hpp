@@ -13,12 +13,6 @@
 class Bureaucrat;
 
 class AForm {
-private:
-    const std::string name;
-    bool isSigned;
-    const int gradeToSign;
-    const int gradeToExecute;
-
 public:
     AForm();
 
@@ -61,6 +55,12 @@ public:
     public:
         const char* what() const throw();
     };
+
+private:
+    const std::string name;
+    bool isSigned;
+    const int gradeToSign;
+    const int gradeToExecute;
 };
 
 std::ostream &operator<<(std::ostream &os, const AForm &form);

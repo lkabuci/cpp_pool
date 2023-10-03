@@ -8,17 +8,14 @@ short Bureaucrat::lowGrade = 150;
 short Bureaucrat::maxGrade = 1;
 
 Bureaucrat::Bureaucrat(const std::string name, short grade) : name(name) {
-    if (grade < Bureaucrat::maxGrade) {
+    if (grade < Bureaucrat::maxGrade)
         throw Bureaucrat::GradeTooHighException();
-    } else if (grade > Bureaucrat::lowGrade) {
+    if (grade > Bureaucrat::lowGrade)
         throw Bureaucrat::GradeTooLowException();
-    } else {
-        this->grade = grade;
-    }
+	this->grade = grade;
 }
 
 Bureaucrat::Bureaucrat(const Bureaucrat &other) : name(other.name), grade(other.grade) {
-    *this = other;
 }
 
 Bureaucrat &Bureaucrat::operator=(const Bureaucrat &other) {
