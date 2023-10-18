@@ -26,7 +26,7 @@ public:
 
     Bureaucrat &operator=(const Bureaucrat &);
 
-    virtual ~Bureaucrat();
+    ~Bureaucrat();
 
     short getGrade() const;
 
