@@ -17,7 +17,7 @@ private:
 public:
     Array();
 
-    explicit Array(unsigned int size);
+    Array(unsigned int size);
 
     Array(const Array<T> &other);
 
@@ -27,11 +27,11 @@ public:
 
     T &operator[](unsigned int index);
 
-    unsigned int size();
+    unsigned int size() const;
 };
 
 template<typename T>
-Array<T>::Array() : m_elements(NULL), m_size() {
+Array<T>::Array() : m_elements(NULL), m_size(0) {
 }
 
 template<typename T>
@@ -64,12 +64,12 @@ Array<T> &Array<T>::operator=(const Array<T> &other) {
 template<typename T>
 T &Array<T>::operator[](unsigned int index) {
     if (index >= m_size)
-        throw std::exception();
+        throw std::out_of_range("index out of range");
     return m_elements[index];
 }
 
 template<typename T>
-unsigned int Array<T>::size() {
+unsigned int Array<T>::size() const {
     return m_size;
 }
 

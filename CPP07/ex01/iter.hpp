@@ -7,13 +7,12 @@
 
 #include <iostream>
 
-template<typename T, typename U, typename V>
-
-void iter(T *array, U length, V *func) {
+template<typename T, typename V>
+void iter(T *array, int length, V *func) {
     if (array == NULL) {
         return;
     }
-    for (U i = 0; i < length; ++i) {
+    for (int i = 0; i < length; ++i) {
         func(array[i]);
     }
 };

@@ -4,11 +4,6 @@
 
 #include "Array.hpp"
 
-void foo() {
-//    void* ptr = std::malloc(15);
-//    (void)ptr;
-}
-
 int main() {
     Array<int> emptyArray;
     std::cout << "Empty Array Size: " << emptyArray.size() << std::endl;
@@ -46,6 +41,12 @@ int main() {
         std::cout << assignedArray[i] << " ";
     }
     std::cout << std::endl;
+
+    try {
+        copyArray[-1];
+    } catch (const std::exception& ex) {
+        std::cout << ex.what() << std::endl;
+    }
 
     return 0;
 }
