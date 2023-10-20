@@ -8,7 +8,7 @@ int main(int argc, char *argv[]) {
 
     (void)argc, (void)argv;
 
-    int target = 1;
+    int target = 2;
 
     std::vector<int> vector;
 

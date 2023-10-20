@@ -4,16 +4,21 @@
 
 #include "Span.hpp"
 
-int main() {
+int main()
+{
 
-    Span sp(10);
-
-    try {
-        sp.fill();
-        std::cout << sp.shortestSpan() << std::endl;
-    }
-    catch (const std::exception &e) {
-        std::cout << e.what() << std::endl;
+    {
+        Span sp(10000);
+        try
+        {
+            sp.fill();
+            std::cout << sp.shortestSpan() << std::endl;
+            std::cout << sp.longestSpan() << "\n";
+        }
+        catch (const std::exception &e)
+        {
+            std::cout << e.what() << std::endl;
+        }
     }
     return 0;
 }

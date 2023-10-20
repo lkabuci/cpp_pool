@@ -7,6 +7,21 @@
 Span::Span(unsigned int maxNumbers) : N(maxNumbers) {
 }
 
+Span::Span(const Span& other) : N(other.N), list(other.list) {
+}
+
+Span& Span::operator=(const Span& other) {
+    if (this == &other) {
+        return *this;
+    }
+    this->N = other.N;
+    this->list = other.list;
+    return *this;
+}
+
+Span::~Span() {
+}
+
 void Span::addNumber(unsigned int number) {
     if (list.size() >= N)
         throw std::range_error("List out of range error.");
@@ -26,14 +41,14 @@ int Span::shortestSpan() {
     if (list.size() <= 1)
         throw std::length_error("Not enough spans");
     int smallest = std::numeric_limits<int>::max();
-    for (std::vector<int>::iterator it = list.begin(); it != list.end() - 1; it++) {
-        for (std::vector<int>::iterator jit = it + 1; jit != list.end(); jit++) {
-            int diff = std::abs(*it - *jit);
-            if (diff < smallest) {
-                smallest = diff;
-            }
+    std::sort(list.begin(), list.end());
+    for (std::vector<int>::iterator it = list.begin(); it != list.end() - 1; ++it) {
+        int diff = *(it + 1) - *it;
+        if (diff < smallest) {
+            smallest = diff;
         }
     }
+
     return smallest;
 }
 

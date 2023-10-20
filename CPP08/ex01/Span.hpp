@@ -17,7 +17,11 @@ private:
     std::vector<int> list;
 
 public:
-    explicit Span(unsigned int maxNumbers);
+    Span(unsigned int maxNumbers);
+    Span(const Span&);
+    Span& operator=( const Span&);
+    ~Span( void );
+
     void addNumber(unsigned int number);
     void fill();
     int shortestSpan();
