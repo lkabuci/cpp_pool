@@ -48,17 +48,21 @@ static void operate(std::stack<int> &stack, char op) {
     stack.pop();
     int v2 = stack.top();
     stack.pop();
+    if (v1 == 0) {
+        std::cerr << "Error: can't divide by 0\n";
+        exit( EXIT_FAILURE );
+    }
     int res = getResult(v1, v2, op);
     stack.push(res);
 }
 
 static int getResult(int v1, int v2, char op) {
     if (op == '+')
-        return v1 + v2;
+        return v2 + v1;
     if (op == '-')
         return v2 - v1;
     if (op == '*')
-        return v1 * v2;
+        return v2 * v1;
     else
         return v2 / v1;
 }
