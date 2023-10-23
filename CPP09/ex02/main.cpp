@@ -15,6 +15,9 @@ int main(int argc, const char *argv[]) {
         return 1;
     }
 
+    if (argc == 2) {
+        return 0;
+    }
     // clock_t startVector = clock();
 
     std::deque<int> dq;

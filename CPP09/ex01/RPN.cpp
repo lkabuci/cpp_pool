@@ -56,7 +56,7 @@ static void operate(std::stack<int> &stack, char op) {
     stack.pop();
     int v2 = stack.top();
     stack.pop();
-    if (v1 == 0) {
+    if (v1 == 0 && op == '/') {
         std::cerr << "Error: can't divide by 0\n";
         exit( EXIT_FAILURE );
     }
