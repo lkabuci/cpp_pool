@@ -15,7 +15,7 @@ int main(int argc, const char *argv[]) {
     }
 
     BitcoinExchange bitcoinExchange(argv[1]);
-    bitcoinExchange.display();
+    // bitcoinExchange.display();
 
     return 0;
 }

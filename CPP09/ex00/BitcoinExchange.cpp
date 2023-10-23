@@ -4,154 +4,211 @@
 
 #include "BitcoinExchange.hpp"
 
-static vData parseFile(const std::string &filename, char delim);
-static struct data parseRow(std::string row, char delim);
-static void parseDate(struct data *dt, std::string &date);
-static float parseValue(std::string &value, char delim);
-static std::string trimallspaces(std::string basicString);
-static std::string &trim(std::string &s);
-static bool isDateExists(struct data data);
-static bool isLeapYear(int year);
 static bool isAllDigit(std::string str);
-static bool compareDate(const struct data &dt1, const struct data &dt2);
-static bool areDatesEqual(const struct data &dt1, const struct data &dt2);
+static std::pair<std::string, std::string> split( std::string str, char delim );
+static void checkDate( std::string );
+static float checkValue ( std::string );
+static std::string &trim(std::string &s);
+static bool isLeapYear(int year);
+static void isDateExists(int year, int month, int day, std::string date);
+static void checkSpaces(std::string date, std::string value);
 
-
-BitcoinExchange::BitcoinExchange(const std::string &filename) : inputFileName(filename) {
-    database = parseFile("data.csv", ',');
-    inputFile = parseFile(inputFileName, '|');
-    std::sort(database.begin(), database.end(), compareDate);
+BitcoinExchange::BitcoinExchange(const std::string filename) : _filename(filename) {
+    _database = fillDataBase();
+    parseInput();
 }
 
-// database first
-void BitcoinExchange::display() {
-    for (vData::iterator inputItr = inputFile.begin(); inputItr != inputFile.end(); ++inputItr) {
-        if (!isDateExists(*inputItr)) {
-            std::cout << "Error: bad input => " << inputItr->iso << std::endl;
-            continue;
-        }
-        if (inputItr->value == -1) {
-            std::cout << "Error: not a positive number." << std::endl;
-            continue;
-        }
-        if (inputItr->value == -2) {
-            std::cout << "Error: too large a number." << std::endl;
-            continue;
-        }
-        // 2011-01-03 => 3 = 0.9
-        vData::iterator dbPrevItr = database.begin();
-        for (vData::iterator dbItr = database.begin(); dbItr != database.end(); ++ dbItr) {
-            if (areDatesEqual(*inputItr, *dbItr)) {
-                std::cout << inputItr->iso << " => " << inputItr->value << " = " << inputItr->value * dbItr->value << std::endl;
-                break;
-            }
-            else if (compareDate(*inputItr, *dbItr)) {
-                std::cout << inputItr->iso << " => " << inputItr->value << " = " << inputItr->value * dbPrevItr->value << std::endl;
-                break;
-            }
-            dbPrevItr = dbItr;
-        }
-    }
+BitcoinExchange::BitcoinExchange(const BitcoinExchange& other) : _filename(other._filename), _database(other._database) {
 }
 
-static vData parseFile(const std::string &filename, char delim) {
-    std::fstream file;
-    file.open(filename.c_str());
-    if (file.fail()) {
-        std::cerr << "Error while opening the file" << std::endl;
-        exit(EXIT_FAILURE);
+BitcoinExchange& BitcoinExchange::operator= ( const BitcoinExchange& other) {
+    if (this == &other) {
+        return *this;
     }
-    std::string row;
-    vData vdata;
-
-    std::getline(file, row);
-    if (trimallspaces(row) != "date|value" && delim == '|') {
-        std::cerr << "invalid header file" << std::endl;
-        exit(EXIT_FAILURE);
-    }
-
-    while (std::getline(file, row)) {
-        trim(row);
-        struct data dt = parseRow(row, delim);
-        vdata.push_back(dt);
-    }
-
-    file.close();
-    return vdata;
+    const_cast<std::string&>(_filename) = other._filename;
+    _database = other._database;
+    return *this;
 }
 
-static std::string trimallspaces(std::string basicString) {
-    std::string noSpaceStr;
-    for (int i = 0; basicString[i]; i++) {
-        if (!std::isspace(basicString[i])) {
-            noSpaceStr += basicString[i];
-        }
-    }
-    return noSpaceStr;
+BitcoinExchange::~BitcoinExchange() {
 }
 
-static struct data parseRow(std::string row, char delim) {
-    std::stringstream ss(row);
-    std::string buffer;
-    int counter = 0;
-    std::vector<std::string> vstring;
-    struct data data = {};
+dict BitcoinExchange::fillDataBase( void ) {
+    std::string     row;
+    dict            data;
+    std::fstream file( "data.csv" );
 
-    data.value = -1;
-
-    while (std::getline(ss, buffer, delim)) {
-        vstring.push_back(trim(buffer));
-        ++counter;
+    if (!file.is_open()) {
+        std::cerr << "Error: can't read from the database\n";
+        exit ( EXIT_FAILURE );
     }
-    data.iso = vstring[0];
-    parseDate(&data, vstring[0]);
-    if (counter == 2) {
-        data.value = parseValue(vstring[1], delim);
+    std::getline (file, row);
+    while ( std::getline(file, row) ) {
+        std::pair<std::string, std::string> splited = split ( row, ',' );
+        data.insert( std::pair<std::string, float> (splited.first, atof(splited.second.c_str())) );
     }
     return data;
 }
 
-static void parseDate(struct data *dt, std::string &date) {
-    std::stringstream ss(date);
-    std::string buffer;
-    std::vector<std::string> strvect;
+void BitcoinExchange::parseInput( void ) {
+    std::string row;
+    std::fstream file ( _filename );
+    if (file.fail()) {
+        std::cerr << "Error: can't read input file\n";
+        exit ( EXIT_FAILURE );
+    }
 
-    dt->day = -1;
-    dt->month = -1;
-    dt->year = -1;
-    int counter = 0;
+    // parse header file
+    std::getline(file, row);
+    if (trim(row) != "date | value") {
+        std::cerr << "Error: invalid input header file\n";
+        exit (EXIT_FAILURE);
+    }
 
-    while (std::getline(ss, buffer, '-')) {
-        if (isAllDigit(buffer)) {
-            strvect.push_back(buffer);
-        } else {
-            strvect.push_back(std::string("-1"));
+    // parse row by row
+    while ( std::getline(file, row) ) {
+        std::string date;
+        float       value;
+        try {
+            if (row.empty()) {
+                continue;
+            }
+            std::pair<std::string, std::string> splited = split ( row, '|' );
+
+            checkSpaces(splited.first, splited.second);
+            date = trim(splited.first);
+            checkDate(date);
+            if (date < "2009-01-02") throw std::invalid_argument("Error: no bitcoin before 2009-01-02");
+            value = checkValue(trim(splited.second));
+            dict item;
+            item.insert(std::make_pair(date, value));
+            std::map<std::string, float>::iterator low = std::lower_bound(_database.begin(), _database.end(), *item.begin());
+            low --;
+            std::cout << date << " => " << value << " = " << value * (*low).second << std::endl;
+        } catch (const std::invalid_argument& ex) {
+            std::cout << ex.what() << "\n";
         }
-        ++counter;
     }
-    if (counter != 3) {
-        return;
-    }
-    dt->year = atoi(strvect[0].c_str());
-    dt->month = atoi(strvect[1].c_str());
-    dt->day = atoi(strvect[2].c_str());
 }
 
-// -1 means negative value
-// -2 means too large number
-static float parseValue(std::string &value, char delim) {
-    std::stringstream ss(value);
+// Helpers
+static std::pair<std::string, std::string> split( std::string str, char delim ) {
+    std::stringstream   ss (str);
+    std::string         key;
+    std::string         value;
+
     std::string buffer;
-    float ret;
-    ss >> ret;
-    ss >> std::ws;
-    if (!ss.eof() || ret < 0) {
-        return -1;
+    int counter = 0;
+    if (std::count(str.begin(), str.end(), delim) != 1) {
+        throw std::invalid_argument("Error: invalid argument \"" + str + "\"");
     }
-    if (delim == '|' && ret > 1000) {
-        return -2;
+
+    while (std::getline(ss, buffer, delim)) {
+        if (counter == 0) {
+            key = buffer;
+        }
+        else if (counter == 1) {
+            value = buffer;
+        }
+        counter ++;
     }
-    return ret;
+    if (counter != 2) {
+        throw std::invalid_argument("Error: invalid argument \"" + str + "\"");
+    }
+
+    return std::make_pair (key, value);
+}
+
+
+// "2021-10-12 "
+static void checkDate( std::string date ) {
+    std::stringstream ss ( date );
+    int                  year;
+    int                  month;
+    int                  day;
+
+    std::string             buffer;
+    std::list<std::string>  listOfVals;
+
+    if (std::count(date.begin(), date.end(), '-') != 2) {
+        throw std::invalid_argument("Error: invalid date \"" + date + "\"");
+    }
+
+    int counter = 0;
+    while (std::getline (ss, buffer, '-')) {
+        if (isAllDigit(buffer)) {
+            listOfVals.push_back(buffer);
+        } else {
+            throw std::invalid_argument("Error: not a valid date => " + date);
+        }
+        counter ++;
+    }
+    if (counter != 3) {
+        throw std::invalid_argument("Error: not a valid date => " + date);
+    }
+    std::list<std::string>::iterator it = listOfVals.begin();
+    year = atoi(it->c_str()); std::advance(it, 1);
+    month = atoi(it->c_str()); std::advance(it, 1);
+    day = atoi(it->c_str());
+    isDateExists(year, month, day, date);
+}
+
+// Value checking helpers
+static float checkValue ( std::string str ) {
+    float value;
+    std::stringstream ss ( str );
+
+    if (std::count(str.begin(), str.end(), '.') > 1) {
+        throw std::invalid_argument("more than one dot");
+    }
+
+    // std::cout << str << std::endl;
+    for (size_t i = 0; str[i]; i++) {
+        if (str[i] == '.') continue;
+        if (!isdigit(str[i])) {
+            // std::cout << str[i] << std::endl;
+            throw std::invalid_argument("invalid character");
+        }
+    }
+
+    if (ss >> value) {
+        if (value > 1000) {
+            throw std::invalid_argument("Error: too large a number.");
+        }
+        if (value < 0) {
+            throw std::invalid_argument("Error: not a positive number");
+        }
+        return value;
+    }
+    throw std::invalid_argument ("Error: not a valid number.");
+}
+
+// Date checking helpers
+static void isDateExists(int year, int month, int day, std::string date) {
+    bool isExits = true;
+    if (month > 12 || day > 31 || month <= 0 || day <= 0 || year < 0)
+        isExits = false;
+    if (day == 31 && ((month == 4) || (month == 6) || (month == 9) || (month == 11))) {
+        isExits = false;
+    }
+    if (month == 2) {
+        if (day >= 30) {
+            isExits = false;
+        }
+        if (!isLeapYear(year) && day == 29) {
+            isExits = false;
+        }
+    }
+    if (isExits == false) {
+        throw std::invalid_argument("Error: date does not exist => " + date);
+    }
+}
+
+static bool isLeapYear(int year) {
+    if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)) {
+        return true;
+    }
+    return false;
 }
 
 static std::string &trim(std::string &s) {
@@ -170,52 +227,29 @@ static std::string &trim(std::string &s) {
 
 static bool isAllDigit(std::string str) {
     std::stringstream ss(str);
+    ss >> std::noskipws;
     int val;
     ss >> val;
-    ss >> std::ws;
     return ss.eof();
 }
 
-static bool isDateExists(struct data data) {
-    if (data.month > 12 || data.day > 31 || data.month <= 0 || data.day <= 0 || data.year < 0)
-        return false;
-    if (data.day == 31 && ((data.month == 4) || (data.month == 6) || (data.month == 9) || (data.month == 11))) {
-        return false;
+static void checkSpaces(std::string date, std::string value) {
+    if (date.empty() || value.empty()) {
+        throw std::invalid_argument("Error empty value " + date);
     }
-    if (data.month == 2) {
-        if (data.day >= 30) {
-            return false;
-        }
-        if (!isLeapYear(data.year) && data.day == 29) {
-            return false;
-        }
+    if (std::count(date.begin(), date.end(), ' ') != 1 && std::count(value.begin(), value.end(), ' ') != 1) {
+        throw std::invalid_argument("Error: invalid space pattern");
     }
-    return true;
-}
-
-static bool isLeapYear(int year) {
-    if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)) {
-        return true;
-    }
-    return false;
-}
-
-static bool compareDate(const struct data &dt1, const struct data &dt2) {
-    if (dt1.year < dt2.year) {
-        return true;
-    } else if (dt1.year > dt2.year) {
-        return false;
-    } else { // Years are equal, compare months
-        if (dt1.month < dt2.month) {
-            return true;
-        } else if (dt1.month > dt2.month) {
-            return false;
-        } else { // Months are equal, compare days
-            return dt1.day < dt2.day;
+    if (date[date.length() - 1] != ' ') throw std::invalid_argument("Error: invalid space pattern in date");
+    for (size_t i = 0; i < date.length() - 1; i++) {
+        if (std::isspace(date[i])) {
+            throw std::invalid_argument("Error: invalid space pattern in date");
         }
     }
-}
-
-static bool areDatesEqual(const struct data &dt1, const struct data &dt2) {
-    return dt1.day == dt2.day && dt1.month == dt2.month && dt1.year == dt2.year;
+    if (value[0] != ' ')  throw std::invalid_argument("Error: invalid space pattern in value");
+    for (size_t i = value.length() - 1; i > 0; i --) {
+        if (std::isspace(value[i])) {
+            throw std::invalid_argument("Error: invalid space pattern in value");
+        }
+    }
 }

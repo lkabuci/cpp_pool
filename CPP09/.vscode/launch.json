@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "lldb",
+      "request": "launch",
+      "args": ["5", "2", "9", "7" ,"14", "8"],
+      "cwd": "/Users/relkabou/Desktop/cpp_pool/CPP09/ex02",
+      "program": "/Users/relkabou/Desktop/cpp_pool/CPP09/ex02/PmergeMe"
+    }
+  ]
+}

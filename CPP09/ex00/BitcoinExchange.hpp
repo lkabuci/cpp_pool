@@ -10,28 +10,26 @@
 #include <sstream>
 #include <cstdlib>
 #include <fstream>
-#include <vector>
 #include <algorithm>
+#include <map>
+#include <list>
 
-struct data {
-    int year;
-    int month;
-    int day;
-    float value;
-    std::string iso;
-};
-
-typedef std::vector<struct data> vData;
+typedef std::map<std::string, float> dict;
 
 class BitcoinExchange {
-private:
-    const std::string& inputFileName;
-    vData database;
-    vData inputFile;
-
 public:
-    explicit BitcoinExchange(const std::string& filename);
-    void display( void );
+    explicit BitcoinExchange(const std::string filename);
+    BitcoinExchange(const BitcoinExchange&);
+    BitcoinExchange& operator=(const BitcoinExchange&);
+    ~BitcoinExchange();
+
+private:
+    const std::string   _filename;
+    dict                _database;
+
+    // Private methods
+    dict                fillDataBase( void );
+    void                parseInput ( void );
 };
 
 

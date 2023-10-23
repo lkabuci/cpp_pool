@@ -5,13 +5,9 @@
 #include "RPN.hpp"
 
 static std::queue<std::string> getQueue(const char *);
-
 static bool isElementValid(std::string basicString);
-
 static bool isOperand(std::string &str);
-
 static void operate(std::stack<int> &, char);
-
 static int getResult(int v1, int v2, char op);
 
 RPN::RPN(const char *args) {
@@ -29,6 +25,18 @@ RPN::RPN(const char *args) {
         exit(EXIT_FAILURE);
     }
     std::cout << stack.top() << std::endl;
+}
+
+RPN::RPN(const RPN& other) : stack(other.stack), queue(other.queue) {
+}
+
+RPN& RPN::operator=(const RPN& other) {
+    stack = other.stack;
+    queue = other.queue;
+    return *this;
+}
+
+RPN::~RPN() {
 }
 
 void RPN::displayResult() {

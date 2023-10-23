@@ -17,6 +17,9 @@ class RPN {
 
 public:
     explicit RPN(const char* args);
+    RPN(const RPN&);
+    RPN& operator=(const RPN&);
+    ~RPN();
     void displayResult();
 
 private:
