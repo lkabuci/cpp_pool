@@ -1,11 +1,22 @@
 NAME = btc
 
-all:
-	c++ -Wall -Wextra -Werror -o $(NAME) *.cpp -std=c++98
+SRCS = BitcoinExchange.cpp  main.cpp 
+OBJS = ${SRCS:.cpp=.o}
+
+INC  = BitcoinExchange.hpp
+
+all: ${NAME} ${INC}
+
+${NAME}: ${OBJS}
+	c++ ${OBJS} -o ${NAME}
+
+%.o: %.cpp ${INC}
+	c++ -Wall -Wextra -Werror -c $< -o $@
 
 clean:
-	rm -rf $(NAME)
+	rm -rf ${OBJS}
 
 fclean: clean
+	rm -rf ${NAME}
 
 re: clean all
