@@ -4,7 +4,6 @@
 
 #include "BitcoinExchange.hpp"
 
-static bool isAllDigit(std::string str);
 static std::pair<std::string, std::string> split( std::string str, char delim );
 static void checkDate( std::string );
 static float checkValue ( std::string );
@@ -60,7 +59,7 @@ void BitcoinExchange::parseInput( void ) {
 
     // parse header file
     std::getline(file, row);
-    if (trim(row) != "date | value") {
+    if (row != "date | value") {
         std::cerr << "Error: invalid input header file\n";
         exit (EXIT_FAILURE);
     }
@@ -130,21 +129,21 @@ static void checkDate( std::string date ) {
     std::string             buffer;
     std::list<std::string>  listOfVals;
 
-    if (std::count(date.begin(), date.end(), '-') != 2) {
-        throw std::invalid_argument("Error: invalid date \"" + date + "\"");
+    std::string expectedFormat = "####-##-##";
+    if (date.length() != expectedFormat.length())
+        throw std::invalid_argument( "Error: Date is not valid => " + date );
+    for (size_t i = 0; date[i]; ++ i) {
+        if (expectedFormat[i] == '#') {
+            if (!isdigit(date[i])) {
+                throw std::invalid_argument( "Error: invalid date format => " + date );
+            }
+        } else if (expectedFormat[i] != date[i]) {
+            throw std::invalid_argument( "Error: invalid date format => " + date );
+        }
     }
 
-    int counter = 0;
     while (std::getline (ss, buffer, '-')) {
-        if (isAllDigit(buffer)) {
-            listOfVals.push_back(buffer);
-        } else {
-            throw std::invalid_argument("Error: not a valid date => " + date);
-        }
-        counter ++;
-    }
-    if (counter != 3) {
-        throw std::invalid_argument("Error: not a valid date => " + date);
+        listOfVals.push_back(buffer);
     }
     std::list<std::string>::iterator it = listOfVals.begin();
     year = atoi(it->c_str()); std::advance(it, 1);
@@ -162,15 +161,12 @@ static float checkValue ( std::string str ) {
         throw std::invalid_argument("more than one dot");
     }
 
-    // std::cout << str << std::endl;
     for (size_t i = 0; str[i]; i++) {
         if (str[i] == '.') continue;
         if (!isdigit(str[i])) {
-            // std::cout << str[i] << std::endl;
             throw std::invalid_argument("invalid character");
         }
     }
-
     if (ss >> value) {
         if (value > 1000) {
             throw std::invalid_argument("Error: too large a number.");
@@ -223,14 +219,6 @@ static std::string &trim(std::string &s) {
     }
     s.erase(rit.base(), s.end());
     return s;
-}
-
-static bool isAllDigit(std::string str) {
-    std::stringstream ss(str);
-    ss >> std::noskipws;
-    int val;
-    ss >> val;
-    return ss.eof();
 }
 
 static void checkSpaces(std::string date, std::string value) {
