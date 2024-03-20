@@ -1,4 +1,4 @@
-NAME = ex00
+NAME = convert
 
 all:
 	c++ -Wall -Wextra -Werror -o $(NAME) *.cpp -std=c++98

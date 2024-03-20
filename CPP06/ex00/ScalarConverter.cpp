@@ -7,13 +7,14 @@
 #include <sstream>
 #include <limits>
 #include <cstdlib>
+#include <iomanip>
 
 void ScalarConverter::convert(const std::string &literal) {
     // Conversion to char
     if (std::atoi(literal.c_str()) < 255 && std::atoi(literal.c_str()) > -256) {
         char c = std::atoi(literal.c_str());
         if (std::isprint(c))
-            std::cout << "char: '" << c << "'" << std::endl;
+            std::cout << "char: '" << static_cast<char>(c) << "'" << std::endl;
         else
             std::cout << "char: Non displayable" << std::endl;
     } else {
@@ -21,28 +22,30 @@ void ScalarConverter::convert(const std::string &literal) {
     }
 
     // Conversion to int
-    std::istringstream iss(literal);
+    std::stringstream ssi(literal);
     int i;
-    if (iss >> i) {
-        std::cout << "int: " << i << std::endl;
+    if (ssi >> i) {
+        std::cout << "int: " << static_cast<int>(i) << std::endl;
     } else {
         std::cout << "int: impossible" << std::endl;
     }
 
     // Conversion to float
-    std::istringstream issf(literal);
+    std::string literalWithoutSuffix = literal;
+    literalWithoutSuffix.erase(std::remove(literalWithoutSuffix.begin(), literalWithoutSuffix.end(), 'f'), literalWithoutSuffix.end());
+    std::stringstream ssf(literalWithoutSuffix);
     float f;
-    if (issf >> f) {
-        std::cout << "float: " << f << "f" << std::endl;
+    if (ssf >> f) {
+        std::cout << "float: " << std::fixed << std::setprecision(1) << static_cast<float>(f) << "f" << std::endl;
     } else {
         std::cout << "float: impossible" << std::endl;
     }
 
     // Conversion to double
-    std::istringstream issd(literal);
+    std::stringstream ssd(literalWithoutSuffix);
     double d;
-    if (issd >> d) {
-        std::cout << "double: " << d << std::endl;
+    if (ssd >> d) {
+        std::cout << "double: " << std::fixed << std::setprecision(1) << static_cast<double>(d) << std::endl;
     } else {
         std::cout << "double: impossible" << std::endl;
     }
